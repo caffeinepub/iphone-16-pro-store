@@ -20,8 +20,10 @@ import {
   ChevronRight,
   Cpu,
   CreditCard,
+  Gift,
   HardDrive,
   Loader2,
+  MessageCircle,
   Monitor,
   Package,
   Phone,
@@ -32,6 +34,7 @@ import {
   Tag,
   ThumbsUp,
   Truck,
+  Wallet,
   Wifi,
   X,
   ZoomIn,
@@ -157,9 +160,97 @@ const RATING_BREAKDOWN = [
 ];
 
 const BANK_OFFERS = [
-  { bank: "HDFC Bank", offer: "10% off on HDFC Credit Cards, up to ₹1,500" },
-  { bank: "ICICI Bank", offer: "5% Cashback on ICICI Debit Cards, up to ₹750" },
-  { bank: "SBI Cards", offer: "No cost EMI available on SBI Credit Cards" },
+  {
+    bank: "HDFC Bank",
+    offer: "10% off on HDFC Credit Cards, up to ₹1,500",
+    icon: "credit",
+  },
+  {
+    bank: "ICICI Bank",
+    offer: "5% Cashback on ICICI Debit Cards, up to ₹750",
+    icon: "credit",
+  },
+  {
+    bank: "SBI Cards",
+    offer: "No Cost EMI available on SBI Credit Cards",
+    icon: "credit",
+  },
+  {
+    bank: "Axis Bank",
+    offer: "Flat ₹600 off on Axis Bank Buzz Credit Card",
+    icon: "credit",
+  },
+  {
+    bank: "Kotak Bank",
+    offer: "7.5% off on Kotak Bank Credit Card, up to ₹1,000",
+    icon: "credit",
+  },
+  {
+    bank: "Amazon Pay",
+    offer: "5% cashback with Amazon Pay ICICI Bank Card",
+    icon: "wallet",
+  },
+  {
+    bank: "PhonePe",
+    offer: "Flat ₹200 cashback on PhonePe UPI payment (min ₹10,000)",
+    icon: "wallet",
+  },
+];
+
+const EXTRA_OFFERS = [
+  {
+    label: "Coupon Code",
+    detail: "Use code FIRST500 for ₹500 off on your first order",
+    icon: "tag",
+  },
+  {
+    label: "Refer & Earn",
+    detail: "Refer a friend and both get ₹300 off on next purchase",
+    icon: "gift",
+  },
+];
+
+const MORE_PHONES = [
+  {
+    id: "ip15pro",
+    name: "iPhone 15 Pro",
+    variant: "Blue Titanium · 128GB",
+    price: 10999,
+    mrp: 119900,
+    discount: 91,
+    condition: "Grade A",
+    battery: "89%",
+  },
+  {
+    id: "ip14pro",
+    name: "iPhone 14 Pro",
+    variant: "Deep Purple · 256GB",
+    price: 8999,
+    mrp: 109900,
+    discount: 92,
+    condition: "Grade A+",
+    battery: "91%",
+  },
+  {
+    id: "s24ultra",
+    name: "Samsung S24 Ultra",
+    variant: "Titanium Black · 256GB",
+    price: 12999,
+    mrp: 129999,
+    discount: 90,
+    condition: "Like New",
+    battery: "94%",
+  },
+  {
+    id: "op12",
+    name: "OnePlus 12",
+    variant: "Flowy Emerald · 256GB",
+    price: 4999,
+    mrp: 69999,
+    discount: 93,
+    condition: "Grade A",
+    battery: "96%",
+  },
 ];
 
 /* ── Helpers ────────────────────────────────────────────── */
@@ -277,6 +368,9 @@ export default function App() {
       toast.error("Please fill all fields");
       return;
     }
+    const message = `Hello! I'd like to order:\n\nProduct: iPhone 16 Pro (Natural Titanium, 256GB)\nPrice: ₹14,999\n\nName: ${buyName}\nPhone: ${buyPhone}\nAddress: ${buyAddress}\n\nPlease confirm my order. Thank you!`;
+    const whatsappUrl = `https://wa.me/919671870287?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank");
     setBuySuccess(true);
   };
 
@@ -648,15 +742,38 @@ export default function App() {
             <p className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2">
               <CreditCard size={16} className="text-primary" /> Bank Offers
             </p>
-            <div className="space-y-3">
+            <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
               {BANK_OFFERS.map((o) => (
-                <div key={o.bank} className="flex gap-2 text-sm">
-                  <CheckCircle2
-                    size={14}
-                    className="text-green-500 mt-0.5 flex-shrink-0"
-                  />
+                <div
+                  key={o.bank}
+                  className="flex gap-2 text-sm items-start py-1 border-b border-border last:border-0"
+                >
+                  <div className="mt-0.5 flex-shrink-0">
+                    {o.icon === "wallet" ? (
+                      <Wallet size={14} className="text-green-500" />
+                    ) : (
+                      <CreditCard size={14} className="text-blue-500" />
+                    )}
+                  </div>
                   <span>
                     <span className="font-semibold">{o.bank}:</span> {o.offer}
+                  </span>
+                </div>
+              ))}
+            </div>
+            {/* Extra offers */}
+            <div className="mt-3 space-y-2 border-t border-border pt-3">
+              {EXTRA_OFFERS.map((o) => (
+                <div key={o.label} className="flex gap-2 text-sm items-start">
+                  <div className="mt-0.5 flex-shrink-0">
+                    {o.icon === "gift" ? (
+                      <Gift size={14} className="text-purple-500" />
+                    ) : (
+                      <Tag size={14} className="text-amber-500" />
+                    )}
+                  </div>
+                  <span>
+                    <span className="font-semibold">{o.label}:</span> {o.detail}
                   </span>
                 </div>
               ))}
@@ -687,6 +804,28 @@ export default function App() {
                 <span className="font-bold text-foreground">₹8,000 off</span> on
                 exchange of your old phone
               </p>
+            </div>
+            <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border border-green-200 shadow-xs p-4">
+              <p className="font-semibold text-sm text-foreground mb-1 flex items-center gap-2">
+                <MessageCircle size={16} className="text-green-600" /> Order on
+                WhatsApp
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Chat directly with us to get exclusive deals and faster order
+                processing.
+              </p>
+              <button
+                type="button"
+                onClick={() =>
+                  window.open(
+                    "https://wa.me/919671870287?text=Hi!+I'm+interested+in+buying+iPhone+16+Pro+at+₹14,999.+Please+share+details.",
+                    "_blank",
+                  )
+                }
+                className="mt-2 flex items-center gap-2 text-xs font-bold text-green-700 hover:text-green-800 transition-colors"
+              >
+                <MessageCircle size={13} /> Chat Now on WhatsApp →
+              </button>
             </div>
           </div>
         </div>
@@ -838,6 +977,83 @@ export default function App() {
               </ul>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── More Phones You'll Love ────────────────────── */}
+      <section
+        data-ocid="more_phones.section"
+        className="max-w-5xl mx-auto px-4 py-8"
+      >
+        <h2 className="font-display font-bold text-xl mb-2 text-foreground">
+          More Phones You'll Love
+        </h2>
+        <p className="text-sm text-muted-foreground mb-5">
+          All certified pre-owned · Grade A condition · Free delivery
+        </p>
+        <div className="flex gap-4 overflow-x-auto pb-3 lg:grid lg:grid-cols-4 lg:overflow-visible scrollbar-hide snap-x snap-mandatory">
+          {MORE_PHONES.map((phone, i) => (
+            <motion.div
+              key={phone.id}
+              data-ocid={`more_phones.item.${i + 1}`}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08, duration: 0.35 }}
+              className="flex-shrink-0 w-64 lg:w-auto snap-start bg-white rounded-xl border border-border shadow-xs hover:shadow-card transition-shadow p-4 flex flex-col gap-2"
+            >
+              <div className="flex items-start justify-between gap-1">
+                <div className="flex-1 min-w-0">
+                  <p className="font-display font-bold text-sm text-foreground leading-tight truncate">
+                    {phone.name}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-0.5 truncate">
+                    {phone.variant}
+                  </p>
+                </div>
+                <Badge className="bg-green-100 text-green-700 border-0 text-[10px] flex-shrink-0">
+                  {phone.condition}
+                </Badge>
+              </div>
+
+              <div className="flex items-center gap-3 text-xs">
+                <span className="flex items-center gap-1 text-green-600 font-semibold">
+                  <Battery size={11} />
+                  {phone.battery}
+                </span>
+                <span className="text-muted-foreground">Battery Health</span>
+              </div>
+
+              <div className="mt-auto pt-2 border-t border-border">
+                <div className="flex items-baseline gap-2 flex-wrap">
+                  <span className="font-display font-black text-lg text-foreground">
+                    ₹{phone.price.toLocaleString("en-IN")}
+                  </span>
+                  <span className="text-xs text-muted-foreground line-through">
+                    ₹{phone.mrp.toLocaleString("en-IN")}
+                  </span>
+                  <Badge className="bg-green-500/10 text-green-700 border border-green-200 text-[10px] font-bold">
+                    {phone.discount}% OFF
+                  </Badge>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                data-ocid={`more_phones.button.${i + 1}`}
+                onClick={() =>
+                  window.open(
+                    `https://wa.me/919671870287?text=${encodeURIComponent(`I'm interested in ${phone.name} at ₹${phone.price.toLocaleString("en-IN")}. Please share details.`)}`,
+                    "_blank",
+                  )
+                }
+                className="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white text-xs font-bold py-2 px-3 rounded-lg transition-colors mt-1"
+              >
+                <MessageCircle size={13} />
+                Buy on WhatsApp
+              </button>
+            </motion.div>
+          ))}
         </div>
       </section>
 
@@ -1387,12 +1603,28 @@ export default function App() {
               <CheckCircle2 size={48} className="text-green-500 mx-auto mb-3" />
               <p className="font-display font-bold text-xl">Order Placed! 🎉</p>
               <p className="text-sm text-muted-foreground mt-2">
-                Thank you, {buyName}! Your iPhone 16 Pro is on its way.
-                <br />
-                You'll receive a confirmation call within 2 hours.
+                Your order details have been sent via WhatsApp! We'll confirm
+                within 2 hours.
               </p>
-              <Button className="mt-5 w-full" onClick={() => setBuyOpen(false)}>
-                Continue Shopping
+              <Button
+                className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-bold"
+                onClick={() => {
+                  const message = `Hello! I'd like to order:\n\nProduct: iPhone 16 Pro (Natural Titanium, 256GB)\nPrice: ₹14,999\n\nName: ${buyName}\nPhone: ${buyPhone}\nAddress: ${buyAddress}\n\nPlease confirm my order. Thank you!`;
+                  window.open(
+                    `https://wa.me/919671870287?text=${encodeURIComponent(message)}`,
+                    "_blank",
+                  );
+                }}
+              >
+                <MessageCircle size={16} className="mr-2" />
+                Open WhatsApp
+              </Button>
+              <Button
+                className="mt-3 w-full"
+                variant="outline"
+                onClick={() => setBuyOpen(false)}
+              >
+                Done
               </Button>
             </motion.div>
           ) : (

@@ -1,38 +1,25 @@
-# iPhone 16 Pro Resale Landing Page
+# iPhone 16 Pro Store
 
 ## Current State
-New project with no existing code.
+Single-product landing page for iPhone 16 Pro at ₹14,999. Has hero, gallery, specs, bank offers (3 bank discounts + EMI + exchange), transparency section, customer reviews, sticky mobile CTA, and Buy Now / Make an Offer modals. After Buy Now form is submitted, a success screen appears with no further action.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Full single-product e-commerce landing page for a pre-owned iPhone 16 Pro priced at ₹14,999
-- Hero section: bold headline, original vs. sale price with discount badge, sticky CTA bar
-- Condition Gallery: multi-angle product images with zoom/lightbox functionality
-- Key Specs section: battery health, storage, network status with icons
-- Transparency section: cosmetic wear details and box contents
-- Reviews section: star ratings, individual review cards, aggregate score
-- Trust/Secure Purchase footer: payment badges, return policy, warranty info
-- Sticky bottom CTA bar (mobile-first): "Buy Now" and "Make an Offer" buttons
-- Offer modal: simple form for users to submit a custom price offer
-- Backend: store and retrieve reviews, store offer submissions
+- "More Phones" / related products section showing 3–4 additional refurbished phone listings (e.g. iPhone 15 Pro, iPhone 14 Pro, Samsung S24 Ultra, OnePlus 12) with price, condition badge, and a "Buy Now" CTA per card.
+- Additional offers beyond the current 3 bank offers: add Axis Bank, Kotak Bank, Amazon Pay, and PhonePe wallet cashback offers; add a "Coupon Code" offer row (e.g. FIRST500 for ₹500 off); add a "Refer & Earn" blurb.
+- WhatsApp redirect on order completion: after the Buy Now form is submitted and validated, instead of (or alongside) the success screen, automatically open WhatsApp (`https://wa.me/919671870287`) with a pre-filled message containing the customer's name, phone, address, and product details.
 
 ### Modify
-- Nothing (new project)
+- Buy Now success handler: after form submit, open WhatsApp link (`https://wa.me/919671870287?text=...`) with order details pre-filled in the message, then show the success screen.
+- Offers section: expand bank offers list to include 5+ offers and add coupon/referral rows.
 
 ### Remove
-- Nothing (new project)
+- Nothing to remove.
 
 ## Implementation Plan
-1. Backend canister: endpoints for getting/adding reviews, submitting offers
-2. Generate product images (hero, multiple angles)
-3. Frontend:
-   - Sticky header with brand name and cart icon
-   - Hero section with headline, price, discount badge, CTA buttons
-   - Condition Gallery with 4–5 angle images and zoom lightbox
-   - Key Specs grid (battery health 92%, 256GB storage, unlocked)
-   - Transparency section (cosmetic notes + box contents)
-   - Reviews section (aggregate stars + individual cards)
-   - Secure Purchase footer (payment icons, return policy)
-   - Sticky bottom bar on mobile with Buy Now / Make an Offer
-   - Make an Offer modal with price input and submit
+1. Add `MORE_PHONES` constant array with 4 phone listings (name, price, MRP, discount, condition, badge color).
+2. Add "More Phones You'll Love" section after the Transparency section and before Reviews, rendering a horizontal scroll card grid on mobile and a 2-col/4-col grid on desktop. Each card has a "Buy Now" button linking back to the main product or showing a WhatsApp inquiry.
+3. Expand `BANK_OFFERS` constant to include Axis Bank, Kotak Bank, Amazon Pay, PhonePe, and a coupon code row.
+4. Add a coupon/promo row in the Offers section UI.
+5. Update `handleBuySubmit` to construct a WhatsApp URL with the customer's name, phone, address, and product name/price, then call `window.open(whatsappUrl, '_blank')` before or alongside `setBuySuccess(true)`.
