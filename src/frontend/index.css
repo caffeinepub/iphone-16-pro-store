@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Fonts ───────────────────────────────────────────────── */
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("/assets/fonts/CabinetGrotesk-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/assets/fonts/Satoshi-Variable.woff2") format("woff2");
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* ── Core palette ──────────────────────── */
+    /* Background: near-white warm */
+    --background: 0.985 0.003 75;
+    /* Foreground: deep charcoal */
+    --foreground: 0.16 0.01 260;
+
+    /* Card: pure white */
+    --card: 1 0 0;
+    --card-foreground: 0.16 0.01 260;
+
+    --popover: 1 0 0;
+    --popover-foreground: 0.16 0.01 260;
+
+    /* Primary: Flipkart blue */
+    --primary: 0.42 0.18 255;
+    --primary-foreground: 1 0 0;
+
+    /* Secondary: light grey */
+    --secondary: 0.94 0.005 260;
+    --secondary-foreground: 0.16 0.01 260;
+
+    --muted: 0.94 0.005 260;
+    --muted-foreground: 0.52 0.01 260;
+
+    /* Accent: vibrant orange (CTA) */
+    --accent: 0.67 0.19 50;
+    --accent-foreground: 1 0 0;
+
+    --destructive: 0.577 0.245 27;
+    --destructive-foreground: 1 0 0;
+
+    --border: 0.88 0.008 260;
+    --input: 0.88 0.008 260;
+    --ring: 0.42 0.18 255;
+
+    /* Custom tokens */
+    --success: 0.62 0.18 142;
+    --success-foreground: 1 0 0;
+    --warning: 0.76 0.17 58;
+    --warning-foreground: 0.1 0 0;
+    --price: 0.25 0.01 260;
+    --discount: 0.55 0.2 142;
+
+    --chart-1: 0.42 0.18 255;
+    --chart-2: 0.67 0.19 50;
+    --chart-3: 0.62 0.18 142;
+    --chart-4: 0.577 0.245 27;
+    --chart-5: 0.55 0.15 300;
+
+    --sidebar: 0.985 0.003 75;
+    --sidebar-foreground: 0.16 0.01 260;
+    --sidebar-primary: 0.42 0.18 255;
+    --sidebar-primary-foreground: 1 0 0;
+    --sidebar-accent: 0.94 0.005 260;
+    --sidebar-accent-foreground: 0.16 0.01 260;
+    --sidebar-border: 0.88 0.008 260;
+    --sidebar-ring: 0.42 0.18 255;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Satoshi", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: "Cabinet Grotesk", sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-success {
+    color: oklch(var(--success));
+  }
+  .bg-success {
+    background-color: oklch(var(--success));
+  }
+  .text-success-foreground {
+    color: oklch(var(--success-foreground));
+  }
+  .text-discount {
+    color: oklch(var(--discount));
+  }
+  .bg-accent-cta {
+    background-color: oklch(var(--accent));
+  }
+  .text-accent-cta {
+    color: oklch(var(--accent));
+  }
+  .text-price {
+    color: oklch(var(--price));
+  }
+
+  /* Sticky bar safe area */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Zoom cursor for gallery */
+  .cursor-zoom-in {
+    cursor: zoom-in;
+  }
+
+  /* Rating star fill */
+  .star-filled {
+    color: #f59e0b;
+  }
+  .star-empty {
+    color: #d1d5db;
+  }
+
+  /* Smooth image transitions */
+  .gallery-img {
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+  .gallery-img:hover {
+    transform: scale(1.02);
+  }
+}
