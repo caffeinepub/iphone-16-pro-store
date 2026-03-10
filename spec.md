@@ -1,25 +1,38 @@
-# iPhone 16 Pro Store
+# RefurbishedHub Mobile Store
 
 ## Current State
-Single-product landing page for iPhone 16 Pro at ₹14,999. Has hero, gallery, specs, bank offers (3 bank discounts + EMI + exchange), transparency section, customer reviews, sticky mobile CTA, and Buy Now / Make an Offer modals. After Buy Now form is submitted, a success screen appears with no further action.
+A multi-product refurbished phone store with 51+ products (iPhones, Samsung, OnePlus, Google Pixel, Xiaomi, etc.). Products are shown in a horizontal-scroll carousel with no images. No search, filter, or sort capability. No "used duration" badge. Single-product hero section for iPhone 16 Pro.
 
 ## Requested Changes (Diff)
 
 ### Add
-- "More Phones" / related products section showing 3–4 additional refurbished phone listings (e.g. iPhone 15 Pro, iPhone 14 Pro, Samsung S24 Ultra, OnePlus 12) with price, condition badge, and a "Buy Now" CTA per card.
-- Additional offers beyond the current 3 bank offers: add Axis Bank, Kotak Bank, Amazon Pay, and PhonePe wallet cashback offers; add a "Coupon Code" offer row (e.g. FIRST500 for ₹500 off); add a "Refer & Earn" blurb.
-- WhatsApp redirect on order completion: after the Buy Now form is submitted and validated, instead of (or alongside) the success screen, automatically open WhatsApp (`https://wa.me/919671870287`) with a pre-filled message containing the customer's name, phone, address, and product details.
+- Product images for every phone card (brand-mapped: iPhone → phone-iphone image, Samsung → phone-samsung, OnePlus → phone-oneplus, Google Pixel → phone-pixel, all others → phone-android)
+- "Used: 1-2 Days" badge on every product card and the hero section
+- Flipkart-like features:
+  - Search bar to filter phones by name
+  - Category filter tabs: All, iPhone, Samsung, OnePlus, Google, Others
+  - Sort dropdown: Price Low→High, High→Low, Discount %, Newest
+  - Product grid (2 columns mobile, 3-4 columns desktop) replacing horizontal scroll
+  - Wishlist (heart) icon per card
+  - "Add to Cart" button per card with cart count in header
+  - Delivery estimate badge: "Free Delivery by Tomorrow" on each card
+  - "X left in stock" urgency text on some cards
+  - Filter sidebar/drawer on mobile: price range, brand, condition
 
 ### Modify
-- Buy Now success handler: after form submit, open WhatsApp link (`https://wa.me/919671870287?text=...`) with order details pre-filled in the message, then show the success screen.
-- Offers section: expand bank offers list to include 5+ offers and add coupon/referral rows.
+- More Phones section: change from horizontal scroll to full product grid with images, search, filters
+- Hero section: add "Used: 1-2 Days Only" badge
+- Header: update cart count dynamically
 
 ### Remove
-- Nothing to remove.
+- Horizontal scroll product layout for the main catalog
 
 ## Implementation Plan
-1. Add `MORE_PHONES` constant array with 4 phone listings (name, price, MRP, discount, condition, badge color).
-2. Add "More Phones You'll Love" section after the Transparency section and before Reviews, rendering a horizontal scroll card grid on mobile and a 2-col/4-col grid on desktop. Each card has a "Buy Now" button linking back to the main product or showing a WhatsApp inquiry.
-3. Expand `BANK_OFFERS` constant to include Axis Bank, Kotak Bank, Amazon Pay, PhonePe, and a coupon code row.
-4. Add a coupon/promo row in the Offers section UI.
-5. Update `handleBuySubmit` to construct a WhatsApp URL with the customer's name, phone, address, and product name/price, then call `window.open(whatsappUrl, '_blank')` before or alongside `setBuySuccess(true)`.
+1. Add BRAND_IMAGE map to route each product to correct image path
+2. Add useDays field or compute "Used: 1-2 Days" for all products
+3. Add cart state (array of product IDs), wishlist state
+4. Add search state + filter state (brand tab, sort, price range)
+5. Replace the More Phones horizontal scroll with a full-width product grid section with search bar, category tabs, sort dropdown
+6. Each product card: image on top, badges (discount %, used days, battery), name, variant, price, MRP, ratings, delivery info, Add to Cart + Wishlist buttons
+7. Cart drawer/modal showing added items
+8. Update header cart icon badge with live count

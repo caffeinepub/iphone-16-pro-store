@@ -8,7 +8,21 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { Toaster } from "@/components/ui/sonner";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -22,12 +36,14 @@ import {
   CreditCard,
   Gift,
   HardDrive,
+  Heart,
   Loader2,
   MessageCircle,
   Monitor,
   Package,
   Phone,
   RotateCcw,
+  Search,
   Shield,
   ShoppingCart,
   Star,
@@ -99,7 +115,7 @@ const SPECS = [
   {
     icon: Battery,
     label: "Battery Health",
-    value: "92%",
+    value: "100%",
     color: "text-green-600",
   },
   {
@@ -129,25 +145,241 @@ const SEED_REVIEWS = [
     name: "Rajesh K.",
     rating: 5,
     comment:
-      "Absolutely stunning phone! Battery is great and the screen is flawless. Best refurbished deal I've found.",
-    date: "2 weeks ago",
+      "Battery health 100% is absolutely true! Phone feels brand new. Best refurbished deal ever. Screen is flawless.",
+    date: "2 days ago",
     location: "Mumbai",
   },
   {
     name: "Priya M.",
     rating: 5,
     comment:
-      "Came exactly as described. Feels brand new. Very happy with the purchase! Packaging was excellent.",
-    date: "3 weeks ago",
+      "Came exactly as described. 100% battery health confirmed in settings! Very happy. Packaging was excellent.",
+    date: "4 days ago",
     location: "Bangalore",
   },
   {
     name: "Arjun S.",
+    rating: 5,
+    comment:
+      "Genuinely 100% battery health. Lasts all day easily. Fast shipping. Highly recommend RefurbishedHub!",
+    date: "1 week ago",
+    location: "Delhi",
+  },
+  {
+    name: "Sneha R.",
+    rating: 5,
+    comment:
+      "iPhone 15 Pro with 100% battery — absolutely like new. Couldn't be happier. WhatsApp ordering was super easy.",
+    date: "1 week ago",
+    location: "Chennai",
+  },
+  {
+    name: "Vikram T.",
+    rating: 5,
+    comment:
+      "Got Samsung S24 Ultra. 100% battery health as promised. Performance is amazing. Great value for money!",
+    date: "10 days ago",
+    location: "Hyderabad",
+  },
+  {
+    name: "Ananya B.",
+    rating: 5,
+    comment:
+      "iPhone 14 Pro in mint condition. Battery 100%. Looks brand new. Will definitely buy again. 5 stars!",
+    date: "2 weeks ago",
+    location: "Pune",
+  },
+  {
+    name: "Rahul D.",
     rating: 4,
     comment:
-      "Great deal! Minor scratch on back as mentioned but barely noticeable. Fast shipping too. Highly recommend.",
+      "Very good condition phone. Battery health 100% as advertised. Minor cosmetic marks but nothing noticeable.",
+    date: "2 weeks ago",
+    location: "Kolkata",
+  },
+  {
+    name: "Meera N.",
+    rating: 5,
+    comment:
+      "Excellent purchase! iPhone 13 Pro with 100% battery. Fast delivery in 2 days. Trustworthy seller.",
+    date: "3 weeks ago",
+    location: "Jaipur",
+  },
+  {
+    name: "Suresh P.",
+    rating: 5,
+    comment:
+      "Samsung Z Fold 5 arrived in perfect condition. Battery 100%. The best deal I could find online!",
+    date: "3 weeks ago",
+    location: "Ahmedabad",
+  },
+  {
+    name: "Kavitha L.",
+    rating: 5,
+    comment:
+      "iPhone 12 Pro Max — works like new phone. Battery 100% verified. Great customer service via WhatsApp.",
+    date: "3 weeks ago",
+    location: "Lucknow",
+  },
+  {
+    name: "Deepak M.",
+    rating: 4,
+    comment:
+      "OnePlus 12 with 100% battery health. Excellent performance. Delivery was quick and packaging was secure.",
     date: "1 month ago",
-    location: "Delhi",
+    location: "Chandigarh",
+  },
+  {
+    name: "Pooja S.",
+    rating: 5,
+    comment:
+      "Ordered iPhone 16 Plus. Got it with 100% battery. Screen is perfect. Will recommend to all friends!",
+    date: "1 month ago",
+    location: "Nagpur",
+  },
+  {
+    name: "Kiran B.",
+    rating: 5,
+    comment:
+      "Google Pixel 8 Pro arrived in like-new condition. 100% battery health. Amazing camera. Very satisfied.",
+    date: "1 month ago",
+    location: "Bhopal",
+  },
+  {
+    name: "Lakshmi T.",
+    rating: 5,
+    comment:
+      "iPhone SE 3rd Gen — tiny but mighty! 100% battery. Great for my parents. Perfect budget option.",
+    date: "5 weeks ago",
+    location: "Coimbatore",
+  },
+  {
+    name: "Santosh H.",
+    rating: 5,
+    comment:
+      "Best site for refurbished phones in India! Samsung S23 Ultra with 100% battery. Saved ₹70,000!",
+    date: "5 weeks ago",
+    location: "Indore",
+  },
+  {
+    name: "Nisha G.",
+    rating: 5,
+    comment:
+      "iPhone 11 Pro — great condition! Battery at 100%. My kids use it for studies. Very happy purchase.",
+    date: "6 weeks ago",
+    location: "Patna",
+  },
+  {
+    name: "Aditya K.",
+    rating: 5,
+    comment:
+      "Xiaomi 14 Ultra at this price with 100% battery is unbelievable. Highly recommend RefurbishedHub!",
+    date: "6 weeks ago",
+    location: "Surat",
+  },
+  {
+    name: "Geeta R.",
+    rating: 4,
+    comment:
+      "iPhone 14 in great condition. Battery 100%. Slight delay in delivery but quality made up for it.",
+    date: "2 months ago",
+    location: "Vadodara",
+  },
+  {
+    name: "Mohan C.",
+    rating: 5,
+    comment:
+      "OPPO Reno 10 Pro+ looks brand new. Battery 100%. Camera is fantastic. Will buy more phones here.",
+    date: "2 months ago",
+    location: "Ludhiana",
+  },
+  {
+    name: "Divya P.",
+    rating: 5,
+    comment:
+      "iPhone XR for my mom — 100% battery, works perfectly! She loves it. Super value for money.",
+    date: "2 months ago",
+    location: "Nashik",
+  },
+  {
+    name: "Rohit S.",
+    rating: 5,
+    comment:
+      "Purchased iPhone 15 Plus. Battery 100% confirmed immediately. Very professional packaging and delivery.",
+    date: "2 months ago",
+    location: "Agra",
+  },
+  {
+    name: "Sunita K.",
+    rating: 5,
+    comment:
+      "Nothing Phone 2 arrived spotless. Battery 100%. Unique design and great performance. Very happy!",
+    date: "2 months ago",
+    location: "Varanasi",
+  },
+  {
+    name: "Manoj V.",
+    rating: 4,
+    comment:
+      "Samsung Galaxy A54 — solid phone at great price. Battery 100%. Good for daily use. Recommended.",
+    date: "3 months ago",
+    location: "Rajkot",
+  },
+  {
+    name: "Pallavi A.",
+    rating: 5,
+    comment:
+      "iPhone 13 in perfect condition with 100% battery! Couldn't tell it was pre-owned. Amazing deal!",
+    date: "3 months ago",
+    location: "Amritsar",
+  },
+  {
+    name: "Harish N.",
+    rating: 5,
+    comment:
+      "ASUS ROG Phone 8 for gaming — 100% battery, zero issues. Delivered quickly. Best gaming phone deal!",
+    date: "3 months ago",
+    location: "Jodhpur",
+  },
+  {
+    name: "Chitra M.",
+    rating: 5,
+    comment:
+      "Bought iPhone 12 for my daughter. Battery 100%. She's thrilled! Looks as good as new. Great service.",
+    date: "3 months ago",
+    location: "Visakhapatnam",
+  },
+  {
+    name: "Sanjay T.",
+    rating: 5,
+    comment:
+      "OnePlus Nord 3 — amazing value. Battery 100% as stated. Fast charging is incredible. Very satisfied.",
+    date: "4 months ago",
+    location: "Ranchi",
+  },
+  {
+    name: "Bhavna R.",
+    rating: 5,
+    comment:
+      "Google Pixel 7 Pro delivered perfectly. Battery 100%. Camera beats phones twice the price. Excellent!",
+    date: "4 months ago",
+    location: "Guwahati",
+  },
+  {
+    name: "Praveen K.",
+    rating: 4,
+    comment:
+      "Samsung S22 Ultra in good condition. Battery 100%. Some minor wear but very minor. Overall great buy.",
+    date: "4 months ago",
+    location: "Mysore",
+  },
+  {
+    name: "Asha L.",
+    rating: 5,
+    comment:
+      "iPhone XS Max works perfectly. Battery 100%. Bought for elderly father — easy to use. Great choice!",
+    date: "4 months ago",
+    location: "Tiruchirappalli",
   },
 ];
 
@@ -212,6 +444,36 @@ const EXTRA_OFFERS = [
 
 const MORE_PHONES = [
   {
+    id: "ip16plus",
+    name: "iPhone 16 Plus",
+    variant: "Ultramarine · 256GB",
+    price: 13999,
+    mrp: 124900,
+    discount: 89,
+    condition: "Like New",
+    battery: "100%",
+  },
+  {
+    id: "ip16",
+    name: "iPhone 16",
+    variant: "Black · 128GB",
+    price: 11999,
+    mrp: 79900,
+    discount: 85,
+    condition: "Like New",
+    battery: "100%",
+  },
+  {
+    id: "ip15promax",
+    name: "iPhone 15 Pro Max",
+    variant: "Black Titanium · 256GB",
+    price: 14499,
+    mrp: 159900,
+    discount: 91,
+    condition: "Grade A+",
+    battery: "100%",
+  },
+  {
     id: "ip15pro",
     name: "iPhone 15 Pro",
     variant: "Blue Titanium · 128GB",
@@ -219,7 +481,37 @@ const MORE_PHONES = [
     mrp: 119900,
     discount: 91,
     condition: "Grade A",
-    battery: "89%",
+    battery: "100%",
+  },
+  {
+    id: "ip15plus",
+    name: "iPhone 15 Plus",
+    variant: "Yellow · 128GB",
+    price: 8999,
+    mrp: 89900,
+    discount: 90,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "ip15",
+    name: "iPhone 15",
+    variant: "Green · 128GB",
+    price: 6999,
+    mrp: 79900,
+    discount: 91,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "ip14promax",
+    name: "iPhone 14 Pro Max",
+    variant: "Space Black · 256GB",
+    price: 10499,
+    mrp: 139900,
+    discount: 93,
+    condition: "Grade A+",
+    battery: "100%",
   },
   {
     id: "ip14pro",
@@ -229,7 +521,147 @@ const MORE_PHONES = [
     mrp: 109900,
     discount: 92,
     condition: "Grade A+",
-    battery: "91%",
+    battery: "100%",
+  },
+  {
+    id: "ip14plus",
+    name: "iPhone 14 Plus",
+    variant: "Red · 128GB",
+    price: 6499,
+    mrp: 89900,
+    discount: 93,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "ip14",
+    name: "iPhone 14",
+    variant: "Midnight · 128GB",
+    price: 5499,
+    mrp: 79900,
+    discount: 93,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "ip13promax",
+    name: "iPhone 13 Pro Max",
+    variant: "Alpine Green · 256GB",
+    price: 8499,
+    mrp: 129900,
+    discount: 93,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "ip13pro",
+    name: "iPhone 13 Pro",
+    variant: "Sierra Blue · 128GB",
+    price: 6999,
+    mrp: 119900,
+    discount: 94,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "ip13",
+    name: "iPhone 13",
+    variant: "Pink · 128GB",
+    price: 4499,
+    mrp: 69900,
+    discount: 94,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "ip12promax",
+    name: "iPhone 12 Pro Max",
+    variant: "Pacific Blue · 256GB",
+    price: 5999,
+    mrp: 109900,
+    discount: 95,
+    condition: "Grade B+",
+    battery: "100%",
+  },
+  {
+    id: "ip12pro",
+    name: "iPhone 12 Pro",
+    variant: "Gold · 128GB",
+    price: 4999,
+    mrp: 99900,
+    discount: 95,
+    condition: "Grade B+",
+    battery: "100%",
+  },
+  {
+    id: "ip12",
+    name: "iPhone 12",
+    variant: "Blue · 64GB",
+    price: 3499,
+    mrp: 69900,
+    discount: 95,
+    condition: "Grade B+",
+    battery: "100%",
+  },
+  {
+    id: "ip11promax",
+    name: "iPhone 11 Pro Max",
+    variant: "Midnight Green · 256GB",
+    price: 3999,
+    mrp: 89900,
+    discount: 96,
+    condition: "Grade B",
+    battery: "100%",
+  },
+  {
+    id: "ip11pro",
+    name: "iPhone 11 Pro",
+    variant: "Space Grey · 64GB",
+    price: 2999,
+    mrp: 79900,
+    discount: 96,
+    condition: "Grade B",
+    battery: "100%",
+  },
+  {
+    id: "ip11",
+    name: "iPhone 11",
+    variant: "Purple · 64GB",
+    price: 1999,
+    mrp: 59900,
+    discount: 97,
+    condition: "Grade B",
+    battery: "100%",
+  },
+  {
+    id: "ipse3",
+    name: "iPhone SE (3rd Gen)",
+    variant: "Starlight · 64GB",
+    price: 1799,
+    mrp: 49900,
+    discount: 96,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "ipxr",
+    name: "iPhone XR",
+    variant: "Coral · 64GB",
+    price: 1299,
+    mrp: 49900,
+    discount: 97,
+    condition: "Grade B",
+    battery: "100%",
+  },
+  {
+    id: "ipxsmax",
+    name: "iPhone XS Max",
+    variant: "Gold · 64GB",
+    price: 1499,
+    mrp: 64900,
+    discount: 98,
+    condition: "Grade B",
+    battery: "100%",
   },
   {
     id: "s24ultra",
@@ -239,7 +671,87 @@ const MORE_PHONES = [
     mrp: 129999,
     discount: 90,
     condition: "Like New",
-    battery: "94%",
+    battery: "100%",
+  },
+  {
+    id: "s24plus",
+    name: "Samsung S24+",
+    variant: "Cobalt Violet · 256GB",
+    price: 9999,
+    mrp: 99999,
+    discount: 90,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "s24",
+    name: "Samsung S24",
+    variant: "Marble Grey · 128GB",
+    price: 6999,
+    mrp: 74999,
+    discount: 91,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "s23ultra",
+    name: "Samsung S23 Ultra",
+    variant: "Phantom Black · 256GB",
+    price: 8999,
+    mrp: 124999,
+    discount: 93,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "s23plus",
+    name: "Samsung S23+",
+    variant: "Lavender · 256GB",
+    price: 6499,
+    mrp: 94999,
+    discount: 93,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "s23",
+    name: "Samsung S23",
+    variant: "Cream · 128GB",
+    price: 4999,
+    mrp: 74999,
+    discount: 93,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "s22ultra",
+    name: "Samsung S22 Ultra",
+    variant: "Burgundy · 256GB",
+    price: 5999,
+    mrp: 109999,
+    discount: 95,
+    condition: "Grade B+",
+    battery: "100%",
+  },
+  {
+    id: "fold5",
+    name: "Samsung Z Fold 5",
+    variant: "Phantom Black · 256GB",
+    price: 13999,
+    mrp: 154999,
+    discount: 91,
+    condition: "Like New",
+    battery: "100%",
+  },
+  {
+    id: "flip5",
+    name: "Samsung Z Flip 5",
+    variant: "Mint · 256GB",
+    price: 7999,
+    mrp: 99999,
+    discount: 92,
+    condition: "Grade A",
+    battery: "100%",
   },
   {
     id: "op12",
@@ -249,9 +761,203 @@ const MORE_PHONES = [
     mrp: 69999,
     discount: 93,
     condition: "Grade A",
-    battery: "96%",
+    battery: "100%",
+  },
+  {
+    id: "op11",
+    name: "OnePlus 11",
+    variant: "Titan Black · 128GB",
+    price: 3499,
+    mrp: 56999,
+    discount: 94,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "op10pro",
+    name: "OnePlus 10 Pro",
+    variant: "Volcanic Black · 128GB",
+    price: 2999,
+    mrp: 66999,
+    discount: 96,
+    condition: "Grade B+",
+    battery: "100%",
+  },
+  {
+    id: "pixel8pro",
+    name: "Google Pixel 8 Pro",
+    variant: "Obsidian · 128GB",
+    price: 9999,
+    mrp: 106999,
+    discount: 91,
+    condition: "Grade A+",
+    battery: "100%",
+  },
+  {
+    id: "pixel8",
+    name: "Google Pixel 8",
+    variant: "Hazel · 128GB",
+    price: 6999,
+    mrp: 75999,
+    discount: 91,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "pixel7pro",
+    name: "Google Pixel 7 Pro",
+    variant: "Snow · 128GB",
+    price: 5499,
+    mrp: 84999,
+    discount: 94,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "pixel7",
+    name: "Google Pixel 7",
+    variant: "Lemongrass · 128GB",
+    price: 3999,
+    mrp: 59999,
+    discount: 93,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "mi14ultra",
+    name: "Xiaomi 14 Ultra",
+    variant: "Black · 256GB",
+    price: 9999,
+    mrp: 99999,
+    discount: 90,
+    condition: "Like New",
+    battery: "100%",
+  },
+  {
+    id: "mi13",
+    name: "Xiaomi 13 Pro",
+    variant: "Ceramic White · 256GB",
+    price: 5999,
+    mrp: 79999,
+    discount: 93,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "opporeno10",
+    name: "OPPO Reno 10 Pro+",
+    variant: "Glossy Purple · 256GB",
+    price: 4499,
+    mrp: 54999,
+    discount: 92,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "vivox100",
+    name: "Vivo X100 Pro",
+    variant: "Asteroid Black · 256GB",
+    price: 8999,
+    mrp: 89999,
+    discount: 90,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "nothing2",
+    name: "Nothing Phone 2",
+    variant: "Dark Grey · 256GB",
+    price: 3999,
+    mrp: 44999,
+    discount: 91,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "motoe40",
+    name: "Motorola Edge 40 Pro",
+    variant: "Interstellar Black · 256GB",
+    price: 3499,
+    mrp: 44999,
+    discount: 92,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "realmegtneo5",
+    name: "Realme GT Neo 5",
+    variant: "150W Booster Red · 256GB",
+    price: 2499,
+    mrp: 35999,
+    discount: 93,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "nord3",
+    name: "OnePlus Nord 3",
+    variant: "Tempest Gray · 128GB",
+    price: 1999,
+    mrp: 33999,
+    discount: 94,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "a54",
+    name: "Samsung Galaxy A54",
+    variant: "Awesome Lime · 128GB",
+    price: 1799,
+    mrp: 38999,
+    discount: 95,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "poco",
+    name: "POCO F5 Pro",
+    variant: "Carbon Black · 256GB",
+    price: 2299,
+    mrp: 29999,
+    discount: 92,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "iqoo11",
+    name: "iQOO 11 Pro",
+    variant: "Alpha · 256GB",
+    price: 3999,
+    mrp: 59999,
+    discount: 93,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "asus8",
+    name: "ASUS ROG Phone 8",
+    variant: "Phantom Black · 256GB",
+    price: 7999,
+    mrp: 79999,
+    discount: 90,
+    condition: "Like New",
+    battery: "100%",
   },
 ];
+
+/* ── Brand Image Mapping ────────────────────────────── */
+const BRAND_IMAGE: Record<string, string> = {
+  iPhone: "/assets/generated/phone-iphone.dim_400x500.jpg",
+  Samsung: "/assets/generated/phone-samsung.dim_400x500.jpg",
+  OnePlus: "/assets/generated/phone-oneplus.dim_400x500.jpg",
+  Google: "/assets/generated/phone-pixel.dim_400x500.jpg",
+};
+function getPhoneImage(name: string): string {
+  for (const [brand, img] of Object.entries(BRAND_IMAGE)) {
+    if (name.startsWith(brand)) return img;
+  }
+  return "/assets/generated/phone-android.dim_400x500.jpg";
+}
 
 /* ── Helpers ────────────────────────────────────────────── */
 function formatPrice(n: number) {
@@ -332,6 +1038,48 @@ export default function App() {
   const [reviewName, setReviewName] = useState("");
   const [reviewRating, setReviewRating] = useState(0);
   const [reviewComment, setReviewComment] = useState("");
+
+  // Catalog state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("All");
+  const [sortBy, setSortBy] = useState("discount");
+  const [cart, setCart] = useState<Array<{ id: string; cartKey: number }>>([]);
+  const [wishlist, setWishlist] = useState<string[]>([]);
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const addToCart = (id: string) => {
+    setCart((prev) => [...prev, { id, cartKey: Date.now() + prev.length }]);
+    toast.success("Added to cart!");
+  };
+
+  const removeFromCart = (cartKey: number) => {
+    setCart((prev) => prev.filter((item) => item.cartKey !== cartKey));
+  };
+
+  const toggleWishlist = (id: string) => {
+    setWishlist((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+    );
+  };
+
+  const filteredPhones = MORE_PHONES.filter((p) => {
+    const matchSearch = p.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    const matchBrand =
+      selectedBrand === "All"
+        ? true
+        : selectedBrand === "Others"
+          ? !["iPhone", "Samsung", "OnePlus", "Google"].some((b) =>
+              p.name.startsWith(b),
+            )
+          : p.name.startsWith(selectedBrand);
+    return matchSearch && matchBrand;
+  }).sort((a, b) => {
+    if (sortBy === "price_asc") return a.price - b.price;
+    if (sortBy === "price_desc") return b.price - a.price;
+    return b.discount - a.discount;
+  });
 
   const { data: liveReviews = [] } = useAllReviews();
   const submitReview = useSubmitReview();
@@ -461,13 +1209,17 @@ export default function App() {
           </nav>
           <button
             type="button"
+            data-ocid="header.button"
             className="relative p-2 hover:bg-muted rounded-lg transition-colors"
             aria-label="Cart"
+            onClick={() => setCartOpen(true)}
           >
             <ShoppingCart size={20} />
-            <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-primary text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-              1
-            </span>
+            {cart.length > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-primary text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                {cart.length}
+              </span>
+            )}
           </button>
         </div>
       </header>
@@ -510,6 +1262,9 @@ export default function App() {
                   <Badge className="bg-amber-500 text-white font-bold text-xs border-0 shadow">
                     LIKE NEW
                   </Badge>
+                  <Badge className="bg-blue-500 text-white font-bold text-xs border-0 shadow">
+                    Used: 1-2 Days Only
+                  </Badge>
                 </div>
                 <div className="absolute bottom-3 right-3 bg-black/40 text-white rounded-lg p-1.5">
                   <ZoomIn size={16} />
@@ -540,7 +1295,7 @@ export default function App() {
                   4.7
                 </span>
                 <span className="text-xs text-muted-foreground">
-                  (186 ratings)
+                  (847 ratings)
                 </span>
                 <Badge
                   variant="outline"
@@ -905,7 +1660,7 @@ export default function App() {
                     className="text-green-500 mt-0.5 flex-shrink-0"
                   />
                   <span>
-                    Battery health: <strong>92%</strong> – excellent for daily
+                    Battery health: <strong>100%</strong> – perfect for daily
                     use
                   </span>
                 </li>
@@ -980,82 +1735,360 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── More Phones You'll Love ────────────────────── */}
+      {/* ── Phone Catalog (Flipkart-style) ──────────────── */}
       <section
-        data-ocid="more_phones.section"
-        className="max-w-5xl mx-auto px-4 py-8"
+        data-ocid="catalog.section"
+        className="max-w-6xl mx-auto px-4 py-8"
       >
-        <h2 className="font-display font-bold text-xl mb-2 text-foreground">
-          More Phones You'll Love
+        <h2 className="font-display font-bold text-2xl mb-1 text-foreground">
+          All Phones
         </h2>
         <p className="text-sm text-muted-foreground mb-5">
-          All certified pre-owned · Grade A condition · Free delivery
+          51+ certified pre-owned phones · All 100% battery health · Used just
+          1-2 days
         </p>
-        <div className="flex gap-4 overflow-x-auto pb-3 lg:grid lg:grid-cols-4 lg:overflow-visible scrollbar-hide snap-x snap-mandatory">
-          {MORE_PHONES.map((phone, i) => (
-            <motion.div
-              key={phone.id}
-              data-ocid={`more_phones.item.${i + 1}`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.35 }}
-              className="flex-shrink-0 w-64 lg:w-auto snap-start bg-white rounded-xl border border-border shadow-xs hover:shadow-card transition-shadow p-4 flex flex-col gap-2"
-            >
-              <div className="flex items-start justify-between gap-1">
-                <div className="flex-1 min-w-0">
-                  <p className="font-display font-bold text-sm text-foreground leading-tight truncate">
+
+        {/* Search bar */}
+        <div className="relative mb-4">
+          <Search
+            size={16}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+          />
+          <Input
+            data-ocid="catalog.search_input"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search phones..."
+            className="pl-9 bg-white"
+          />
+        </div>
+
+        {/* Brand filter tabs */}
+        <div className="flex gap-2 overflow-x-auto pb-2 mb-4 scrollbar-hide">
+          {["All", "iPhone", "Samsung", "OnePlus", "Google", "Others"].map(
+            (brand) => (
+              <button
+                key={brand}
+                type="button"
+                data-ocid="catalog.tab"
+                onClick={() => setSelectedBrand(brand)}
+                className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-semibold border transition-all ${
+                  selectedBrand === brand
+                    ? "bg-primary text-white border-primary"
+                    : "bg-white text-foreground border-border hover:border-primary hover:text-primary"
+                }`}
+              >
+                {brand}
+              </button>
+            ),
+          )}
+        </div>
+
+        {/* Sort + results count row */}
+        <div className="flex items-center justify-between mb-4 gap-3">
+          <p className="text-sm text-muted-foreground">
+            Showing{" "}
+            <span className="font-semibold text-foreground">
+              {filteredPhones.length}
+            </span>{" "}
+            phones
+          </p>
+          <Select value={sortBy} onValueChange={setSortBy}>
+            <SelectTrigger className="w-48 bg-white text-sm">
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="discount">Best Discount</SelectItem>
+              <SelectItem value="price_asc">Price: Low → High</SelectItem>
+              <SelectItem value="price_desc">Price: High → Low</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Product grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+          {filteredPhones.map((phone, i) => {
+            const ratings = [
+              234, 512, 789, 345, 672, 198, 423, 891, 567, 312, 741, 289, 634,
+              156, 478, 823, 391, 645, 267, 534, 712, 188, 456, 901, 378, 623,
+              244, 567, 832, 459, 213, 678, 345, 789, 123, 567, 890, 234, 678,
+              412, 756, 323, 587, 145, 891, 467, 234, 678, 512, 389, 723,
+            ][i % 51];
+            const isInCart = cart.some((item) => item.id === phone.id);
+            const isWishlisted = wishlist.includes(phone.id);
+            const showUrgency = (i + 1) % 3 === 0;
+            return (
+              <motion.div
+                key={phone.id}
+                data-ocid={`catalog.item.${i + 1}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: Math.min(i * 0.04, 0.4), duration: 0.3 }}
+                className="bg-white rounded-xl border border-border shadow-xs hover:shadow-card transition-all hover:-translate-y-0.5 flex flex-col overflow-hidden"
+              >
+                {/* Product image */}
+                <div className="relative aspect-[3/4] bg-slate-50 overflow-hidden">
+                  <img
+                    src={getPhoneImage(phone.name)}
+                    alt={phone.name}
+                    className="w-full h-full object-contain p-3"
+                  />
+                  {/* Wishlist button */}
+                  <button
+                    type="button"
+                    onClick={() => toggleWishlist(phone.id)}
+                    className="absolute top-2 right-2 p-1.5 bg-white rounded-full shadow border border-border hover:scale-110 transition-transform"
+                    aria-label={
+                      isWishlisted ? "Remove from wishlist" : "Add to wishlist"
+                    }
+                  >
+                    <Heart
+                      size={14}
+                      className={
+                        isWishlisted
+                          ? "fill-red-500 text-red-500"
+                          : "text-muted-foreground"
+                      }
+                    />
+                  </button>
+                </div>
+
+                {/* Card body */}
+                <div className="p-2.5 flex flex-col gap-1.5 flex-1">
+                  {/* Badges */}
+                  <div className="flex flex-wrap gap-1">
+                    <span className="text-[10px] font-bold bg-red-500/10 text-red-600 px-1.5 py-0.5 rounded">
+                      {phone.discount}% off
+                    </span>
+                    <span className="text-[10px] font-bold bg-green-500/10 text-green-700 px-1.5 py-0.5 rounded">
+                      Used: 1-2 Days
+                    </span>
+                    <span className="text-[10px] font-bold bg-blue-500/10 text-blue-700 px-1.5 py-0.5 rounded">
+                      100% Battery
+                    </span>
+                  </div>
+
+                  {/* Name */}
+                  <p className="font-display font-bold text-sm text-foreground leading-tight line-clamp-2">
                     {phone.name}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-0.5 truncate">
+                  <p className="text-xs text-muted-foreground truncate">
                     {phone.variant}
                   </p>
+
+                  {/* Price */}
+                  <div className="flex items-baseline gap-1.5 flex-wrap">
+                    <span className="font-display font-black text-base text-foreground">
+                      ₹{phone.price.toLocaleString("en-IN")}
+                    </span>
+                    <span className="text-xs text-muted-foreground line-through">
+                      ₹{phone.mrp.toLocaleString("en-IN")}
+                    </span>
+                  </div>
+
+                  {/* Stars */}
+                  <div className="flex items-center gap-1">
+                    <span className="inline-flex gap-0.5">
+                      {[1, 2, 3, 4, 5].map((s) => (
+                        <Star
+                          key={s}
+                          size={10}
+                          className={
+                            s <= 4
+                              ? "fill-amber-400 text-amber-400"
+                              : s === 5
+                                ? "text-gray-300"
+                                : "fill-amber-400 text-amber-400"
+                          }
+                        />
+                      ))}
+                    </span>
+                    <span className="text-[10px] text-muted-foreground">
+                      ({ratings})
+                    </span>
+                  </div>
+
+                  {/* Delivery */}
+                  <p className="text-[10px] text-green-600 font-semibold">
+                    ✓ Free Delivery by Tomorrow
+                  </p>
+
+                  {/* Urgency */}
+                  {showUrgency && (
+                    <p className="text-[10px] text-red-500 font-semibold">
+                      ⚡ Only 3 left!
+                    </p>
+                  )}
+
+                  {/* Action buttons */}
+                  <div className="flex gap-1.5 mt-auto pt-1.5">
+                    <button
+                      type="button"
+                      onClick={() => addToCart(phone.id)}
+                      className={`flex-1 text-[11px] font-bold py-1.5 px-2 rounded-lg border transition-colors ${
+                        isInCart
+                          ? "bg-primary text-white border-primary"
+                          : "bg-white text-primary border-primary hover:bg-primary/5"
+                      }`}
+                    >
+                      {isInCart ? "✓ In Cart" : "Add to Cart"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        window.open(
+                          `https://wa.me/919671870287?text=${encodeURIComponent(`I want to buy ${phone.name} (${phone.variant}) at ₹${phone.price.toLocaleString("en-IN")}. Used only 1-2 days, 100% battery. Please confirm.`)}`,
+                          "_blank",
+                        )
+                      }
+                      className="flex-1 text-[11px] font-bold py-1.5 px-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors"
+                    >
+                      Buy Now
+                    </button>
+                  </div>
                 </div>
-                <Badge className="bg-green-100 text-green-700 border-0 text-[10px] flex-shrink-0">
-                  {phone.condition}
-                </Badge>
-              </div>
+              </motion.div>
+            );
+          })}
+        </div>
 
-              <div className="flex items-center gap-3 text-xs">
-                <span className="flex items-center gap-1 text-green-600 font-semibold">
-                  <Battery size={11} />
-                  {phone.battery}
-                </span>
-                <span className="text-muted-foreground">Battery Health</span>
-              </div>
+        {filteredPhones.length === 0 && (
+          <div data-ocid="catalog.empty_state" className="text-center py-16">
+            <p className="text-muted-foreground text-lg">
+              No phones found for "{searchQuery}"
+            </p>
+            <button
+              type="button"
+              className="mt-3 text-primary text-sm font-semibold hover:underline"
+              onClick={() => {
+                setSearchQuery("");
+                setSelectedBrand("All");
+              }}
+            >
+              Clear filters
+            </button>
+          </div>
+        )}
+      </section>
 
-              <div className="mt-auto pt-2 border-t border-border">
-                <div className="flex items-baseline gap-2 flex-wrap">
-                  <span className="font-display font-black text-lg text-foreground">
-                    ₹{phone.price.toLocaleString("en-IN")}
-                  </span>
-                  <span className="text-xs text-muted-foreground line-through">
-                    ₹{phone.mrp.toLocaleString("en-IN")}
-                  </span>
-                  <Badge className="bg-green-500/10 text-green-700 border border-green-200 text-[10px] font-bold">
-                    {phone.discount}% OFF
-                  </Badge>
-                </div>
-              </div>
-
+      {/* ── Cart Drawer ────────────────────────────────── */}
+      <Sheet open={cartOpen} onOpenChange={setCartOpen}>
+        <SheetContent
+          data-ocid="cart.sheet"
+          className="w-full sm:max-w-md flex flex-col"
+        >
+          <SheetHeader>
+            <SheetTitle className="font-display text-xl">
+              Your Cart ({cart.length} {cart.length === 1 ? "item" : "items"})
+            </SheetTitle>
+          </SheetHeader>
+          {cart.length === 0 ? (
+            <div className="flex-1 flex flex-col items-center justify-center gap-3 text-center">
+              <ShoppingCart size={48} className="text-muted-foreground/30" />
+              <p className="text-muted-foreground font-medium">
+                Your cart is empty
+              </p>
               <button
                 type="button"
-                data-ocid={`more_phones.button.${i + 1}`}
-                onClick={() =>
-                  window.open(
-                    `https://wa.me/919671870287?text=${encodeURIComponent(`I'm interested in ${phone.name} at ₹${phone.price.toLocaleString("en-IN")}. Please share details.`)}`,
-                    "_blank",
-                  )
-                }
-                className="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white text-xs font-bold py-2 px-3 rounded-lg transition-colors mt-1"
+                data-ocid="cart.close_button"
+                onClick={() => setCartOpen(false)}
+                className="text-primary text-sm font-semibold hover:underline"
               >
-                <MessageCircle size={13} />
-                Buy on WhatsApp
+                Continue Shopping
               </button>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+            </div>
+          ) : (
+            <>
+              <ScrollArea className="flex-1 pr-1">
+                <div className="space-y-3 py-4">
+                  {cart.map((item) => {
+                    const phone = MORE_PHONES.find((p) => p.id === item.id);
+                    if (!phone) return null;
+                    return (
+                      <div
+                        key={item.cartKey}
+                        className="flex items-center gap-3 bg-slate-50 rounded-xl p-3 border border-border"
+                      >
+                        <img
+                          src={getPhoneImage(phone.name)}
+                          alt={phone.name}
+                          className="w-14 h-14 object-contain bg-white rounded-lg border border-border"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold text-sm text-foreground truncate">
+                            {phone.name}
+                          </p>
+                          <p className="text-xs text-muted-foreground truncate">
+                            {phone.variant}
+                          </p>
+                          <p className="font-bold text-sm text-primary mt-0.5">
+                            ₹{phone.price.toLocaleString("en-IN")}
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeFromCart(item.cartKey)}
+                          className="p-1.5 hover:bg-red-50 rounded-lg text-muted-foreground hover:text-red-500 transition-colors"
+                          aria-label="Remove"
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </ScrollArea>
+              <div className="border-t border-border pt-4 space-y-3">
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Delivery</span>
+                  <span className="text-green-600 font-semibold">FREE</span>
+                </div>
+                <div className="flex justify-between font-bold text-lg">
+                  <span>Total</span>
+                  <span>
+                    ₹
+                    {cart
+                      .reduce((sum, item) => {
+                        const p = MORE_PHONES.find((ph) => ph.id === item.id);
+                        return sum + (p?.price ?? 0);
+                      }, 0)
+                      .toLocaleString("en-IN")}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  data-ocid="cart.close_button"
+                  onClick={() => {
+                    const items = cart
+                      .map((item) => {
+                        const p = MORE_PHONES.find((ph) => ph.id === item.id);
+                        return p
+                          ? `• ${p.name} (${p.variant}) - ₹${p.price.toLocaleString("en-IN")}`
+                          : "";
+                      })
+                      .filter(Boolean)
+                      .join("\n");
+                    const total = cart.reduce((sum, item) => {
+                      const p = MORE_PHONES.find((ph) => ph.id === item.id);
+                      return sum + (p?.price ?? 0);
+                    }, 0);
+                    const message = `Hello! I want to order these phones:\n\n${items}\n\nTotal: ₹${total.toLocaleString("en-IN")}\nPlease confirm availability. Thank you!`;
+                    window.open(
+                      `https://wa.me/919671870287?text=${encodeURIComponent(message)}`,
+                      "_blank",
+                    );
+                  }}
+                  className="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl transition-colors"
+                >
+                  <MessageCircle size={18} />
+                  Order on WhatsApp
+                </button>
+              </div>
+            </>
+          )}
+        </SheetContent>
+      </Sheet>
 
       {/* ── Customer Reviews ───────────────────────────── */}
       <section
@@ -1076,7 +2109,7 @@ export default function App() {
               </p>
               <StarDisplay rating={4.7} size={20} />
               <p className="text-xs text-muted-foreground mt-1">out of 5</p>
-              <p className="text-xs text-muted-foreground">186 ratings</p>
+              <p className="text-xs text-muted-foreground">847 ratings</p>
             </div>
             <Separator
               orientation="vertical"
