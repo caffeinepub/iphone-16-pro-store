@@ -663,300 +663,37 @@ const MORE_PHONES = [
     condition: "Grade B",
     battery: "100%",
   },
-  {
-    id: "s24ultra",
-    name: "Samsung S24 Ultra",
-    variant: "Titanium Black · 256GB",
-    price: 12999,
-    mrp: 129999,
-    discount: 90,
-    condition: "Like New",
-    battery: "100%",
-  },
-  {
-    id: "s24plus",
-    name: "Samsung S24+",
-    variant: "Cobalt Violet · 256GB",
-    price: 10999,
-    mrp: 99999,
-    discount: 90,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "s24",
-    name: "Samsung S24",
-    variant: "Marble Grey · 128GB",
-    price: 10499,
-    mrp: 74999,
-    discount: 91,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "s23ultra",
-    name: "Samsung S23 Ultra",
-    variant: "Phantom Black · 256GB",
-    price: 10999,
-    mrp: 124999,
-    discount: 93,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "s23plus",
-    name: "Samsung S23+",
-    variant: "Lavender · 256GB",
-    price: 10499,
-    mrp: 94999,
-    discount: 93,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "s23",
-    name: "Samsung S23",
-    variant: "Cream · 128GB",
-    price: 10199,
-    mrp: 74999,
-    discount: 93,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "s22ultra",
-    name: "Samsung S22 Ultra",
-    variant: "Burgundy · 256GB",
-    price: 10299,
-    mrp: 109999,
-    discount: 95,
-    condition: "Grade B+",
-    battery: "100%",
-  },
-  {
-    id: "fold5",
-    name: "Samsung Z Fold 5",
-    variant: "Phantom Black · 256GB",
-    price: 13999,
-    mrp: 154999,
-    discount: 91,
-    condition: "Like New",
-    battery: "100%",
-  },
-  {
-    id: "flip5",
-    name: "Samsung Z Flip 5",
-    variant: "Mint · 256GB",
-    price: 10999,
-    mrp: 99999,
-    discount: 92,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "op12",
-    name: "OnePlus 12",
-    variant: "Flowy Emerald · 256GB",
-    price: 10499,
-    mrp: 69999,
-    discount: 93,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "op11",
-    name: "OnePlus 11",
-    variant: "Titan Black · 128GB",
-    price: 10199,
-    mrp: 56999,
-    discount: 94,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "op10pro",
-    name: "OnePlus 10 Pro",
-    variant: "Volcanic Black · 128GB",
-    price: 10099,
-    mrp: 66999,
-    discount: 96,
-    condition: "Grade B+",
-    battery: "100%",
-  },
-  {
-    id: "pixel8pro",
-    name: "Google Pixel 8 Pro",
-    variant: "Obsidian · 128GB",
-    price: 10999,
-    mrp: 106999,
-    discount: 91,
-    condition: "Grade A+",
-    battery: "100%",
-  },
-  {
-    id: "pixel8",
-    name: "Google Pixel 8",
-    variant: "Hazel · 128GB",
-    price: 10499,
-    mrp: 75999,
-    discount: 91,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "pixel7pro",
-    name: "Google Pixel 7 Pro",
-    variant: "Snow · 128GB",
-    price: 10199,
-    mrp: 84999,
-    discount: 94,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "pixel7",
-    name: "Google Pixel 7",
-    variant: "Lemongrass · 128GB",
-    price: 10099,
-    mrp: 59999,
-    discount: 93,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "mi14ultra",
-    name: "Xiaomi 14 Ultra",
-    variant: "Black · 256GB",
-    price: 10999,
-    mrp: 99999,
-    discount: 90,
-    condition: "Like New",
-    battery: "100%",
-  },
-  {
-    id: "mi13",
-    name: "Xiaomi 13 Pro",
-    variant: "Ceramic White · 256GB",
-    price: 10299,
-    mrp: 79999,
-    discount: 93,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "opporeno10",
-    name: "OPPO Reno 10 Pro+",
-    variant: "Glossy Purple · 256GB",
-    price: 10099,
-    mrp: 54999,
-    discount: 92,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "vivox100",
-    name: "Vivo X100 Pro",
-    variant: "Asteroid Black · 256GB",
-    price: 10999,
-    mrp: 89999,
-    discount: 90,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "nothing2",
-    name: "Nothing Phone 2",
-    variant: "Dark Grey · 256GB",
-    price: 10099,
-    mrp: 44999,
-    discount: 91,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "motoe40",
-    name: "Motorola Edge 40 Pro",
-    variant: "Interstellar Black · 256GB",
-    price: 10099,
-    mrp: 44999,
-    discount: 92,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "realmegtneo5",
-    name: "Realme GT Neo 5",
-    variant: "150W Booster Red · 256GB",
-    price: 10099,
-    mrp: 35999,
-    discount: 93,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "nord3",
-    name: "OnePlus Nord 3",
-    variant: "Tempest Gray · 128GB",
-    price: 10099,
-    mrp: 33999,
-    discount: 94,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "a54",
-    name: "Samsung Galaxy A54",
-    variant: "Awesome Lime · 128GB",
-    price: 10099,
-    mrp: 38999,
-    discount: 95,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "poco",
-    name: "POCO F5 Pro",
-    variant: "Carbon Black · 256GB",
-    price: 10099,
-    mrp: 29999,
-    discount: 92,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "iqoo11",
-    name: "iQOO 11 Pro",
-    variant: "Alpha · 256GB",
-    price: 10299,
-    mrp: 59999,
-    discount: 93,
-    condition: "Grade A",
-    battery: "100%",
-  },
-  {
-    id: "asus8",
-    name: "ASUS ROG Phone 8",
-    variant: "Phantom Black · 256GB",
-    price: 10999,
-    mrp: 79999,
-    discount: 90,
-    condition: "Like New",
-    battery: "100%",
-  },
 ];
 
 /* ── Brand Image Mapping ────────────────────────────── */
-const BRAND_IMAGE: Record<string, string> = {
-  iPhone: "/assets/generated/phone-iphone.dim_400x500.jpg",
-  Samsung: "/assets/generated/phone-samsung.dim_400x500.jpg",
-  OnePlus: "/assets/generated/phone-oneplus.dim_400x500.jpg",
-  Google: "/assets/generated/phone-pixel.dim_400x500.jpg",
+const IPHONE_IMAGE: Record<string, string> = {
+  ip16promax: "/assets/generated/iphone-16promax.dim_400x500.jpg",
+  ip16plus: "/assets/generated/iphone-16plus.dim_400x500.jpg",
+  ip16: "/assets/generated/iphone-16.dim_400x500.jpg",
+  ip15promax: "/assets/generated/iphone-15promax.dim_400x500.jpg",
+  ip15pro: "/assets/generated/iphone-15pro.dim_400x500.jpg",
+  ip15plus: "/assets/generated/iphone-15plus.dim_400x500.jpg",
+  ip15: "/assets/generated/iphone-15.dim_400x500.jpg",
+  ip14promax: "/assets/generated/iphone-14promax.dim_400x500.jpg",
+  ip14pro: "/assets/generated/iphone-14pro.dim_400x500.jpg",
+  ip14plus: "/assets/generated/iphone-14plus.dim_400x500.jpg",
+  ip14: "/assets/generated/iphone-14.dim_400x500.jpg",
+  ip13promax: "/assets/generated/iphone-13promax.dim_400x500.jpg",
+  ip13pro: "/assets/generated/iphone-13pro.dim_400x500.jpg",
+  ip13: "/assets/generated/iphone-13.dim_400x500.jpg",
+  ip12promax: "/assets/generated/iphone-12promax.dim_400x500.jpg",
+  ip12pro: "/assets/generated/iphone-12pro.dim_400x500.jpg",
+  ip12: "/assets/generated/iphone-12.dim_400x500.jpg",
+  ip11promax: "/assets/generated/iphone-11promax.dim_400x500.jpg",
+  ip11pro: "/assets/generated/iphone-11pro.dim_400x500.jpg",
+  ip11: "/assets/generated/iphone-11.dim_400x500.jpg",
+  ipse3: "/assets/generated/iphone-se3.dim_400x500.jpg",
+  ipxr: "/assets/generated/iphone-xr.dim_400x500.jpg",
+  ipxsmax: "/assets/generated/iphone-xsmax.dim_400x500.jpg",
 };
-function getPhoneImage(name: string): string {
-  for (const [brand, img] of Object.entries(BRAND_IMAGE)) {
-    if (name.startsWith(brand)) return img;
-  }
-  return "/assets/generated/phone-android.dim_400x500.jpg";
+
+function getPhoneImage(id: string): string {
+  return IPHONE_IMAGE[id] || "/assets/generated/phone-iphone.dim_400x500.jpg";
 }
 
 /* ── Helpers ────────────────────────────────────────────── */
@@ -1083,10 +820,10 @@ export default function App() {
     const matchBrand =
       selectedBrand === "All"
         ? true
-        : selectedBrand === "Others"
-          ? !["iPhone", "Samsung", "OnePlus", "Google"].some((b) =>
-              p.name.startsWith(b),
-            )
+        : selectedBrand === "iPhone SE/XR"
+          ? p.name.startsWith("iPhone SE") ||
+            p.name.startsWith("iPhone XR") ||
+            p.name.startsWith("iPhone XS")
           : p.name.startsWith(selectedBrand);
     return matchSearch && matchBrand;
   }).sort((a, b) => {
@@ -1819,23 +1556,30 @@ export default function App() {
 
         {/* Brand filter tabs */}
         <div className="flex gap-2 overflow-x-auto pb-2 mb-4 scrollbar-hide">
-          {["All", "iPhone", "Samsung", "OnePlus", "Google", "Others"].map(
-            (brand) => (
-              <button
-                key={brand}
-                type="button"
-                data-ocid="catalog.tab"
-                onClick={() => setSelectedBrand(brand)}
-                className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-semibold border transition-all ${
-                  selectedBrand === brand
-                    ? "bg-primary text-white border-primary"
-                    : "bg-white text-foreground border-border hover:border-primary hover:text-primary"
-                }`}
-              >
-                {brand}
-              </button>
-            ),
-          )}
+          {[
+            "All",
+            "iPhone 16",
+            "iPhone 15",
+            "iPhone 14",
+            "iPhone 13",
+            "iPhone 12",
+            "iPhone 11",
+            "iPhone SE/XR",
+          ].map((brand) => (
+            <button
+              key={brand}
+              type="button"
+              data-ocid="catalog.tab"
+              onClick={() => setSelectedBrand(brand)}
+              className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-semibold border transition-all ${
+                selectedBrand === brand
+                  ? "bg-primary text-white border-primary"
+                  : "bg-white text-foreground border-border hover:border-primary hover:text-primary"
+              }`}
+            >
+              {brand}
+            </button>
+          ))}
         </div>
 
         {/* Sort + results count row */}
@@ -1884,7 +1628,7 @@ export default function App() {
                 {/* Product image */}
                 <div className="relative aspect-[3/4] bg-slate-50 overflow-hidden">
                   <img
-                    src={getPhoneImage(phone.name)}
+                    src={getPhoneImage(phone.id)}
                     alt={phone.name}
                     className="w-full h-full object-contain p-3"
                   />
@@ -2063,7 +1807,7 @@ export default function App() {
                         className="flex items-center gap-3 bg-slate-50 rounded-xl p-3 border border-border"
                       >
                         <img
-                          src={getPhoneImage(phone.name)}
+                          src={getPhoneImage(phone.id)}
                           alt={phone.name}
                           className="w-14 h-14 object-contain bg-white rounded-lg border border-border"
                         />
@@ -2693,7 +2437,7 @@ export default function App() {
                 <img
                   src={
                     selectedProduct
-                      ? getPhoneImage(selectedProduct.name)
+                      ? getPhoneImage(selectedProduct.id)
                       : "/assets/generated/iphone16pro-front.dim_800x1000.jpg"
                   }
                   alt={selectedProduct?.name || "iPhone 16 Pro"}
