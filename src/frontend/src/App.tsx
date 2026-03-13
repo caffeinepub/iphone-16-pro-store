@@ -487,7 +487,7 @@ const MORE_PHONES = [
     id: "ip15plus",
     name: "iPhone 15 Plus",
     variant: "Yellow · 128GB",
-    price: 8999,
+    price: 12999,
     mrp: 89900,
     discount: 90,
     condition: "Grade A",
@@ -497,7 +497,7 @@ const MORE_PHONES = [
     id: "ip15",
     name: "iPhone 15",
     variant: "Green · 128GB",
-    price: 6999,
+    price: 10999,
     mrp: 79900,
     discount: 91,
     condition: "Grade A",
@@ -517,7 +517,7 @@ const MORE_PHONES = [
     id: "ip14pro",
     name: "iPhone 14 Pro",
     variant: "Deep Purple · 256GB",
-    price: 8999,
+    price: 11499,
     mrp: 109900,
     discount: 92,
     condition: "Grade A+",
@@ -527,7 +527,7 @@ const MORE_PHONES = [
     id: "ip14plus",
     name: "iPhone 14 Plus",
     variant: "Red · 128GB",
-    price: 6499,
+    price: 10499,
     mrp: 89900,
     discount: 93,
     condition: "Grade A",
@@ -537,7 +537,7 @@ const MORE_PHONES = [
     id: "ip14",
     name: "iPhone 14",
     variant: "Midnight · 128GB",
-    price: 5499,
+    price: 10199,
     mrp: 79900,
     discount: 93,
     condition: "Grade A",
@@ -547,7 +547,7 @@ const MORE_PHONES = [
     id: "ip13promax",
     name: "iPhone 13 Pro Max",
     variant: "Alpine Green · 256GB",
-    price: 8499,
+    price: 10999,
     mrp: 129900,
     discount: 93,
     condition: "Grade A",
@@ -557,7 +557,7 @@ const MORE_PHONES = [
     id: "ip13pro",
     name: "iPhone 13 Pro",
     variant: "Sierra Blue · 128GB",
-    price: 6999,
+    price: 10499,
     mrp: 119900,
     discount: 94,
     condition: "Grade A",
@@ -567,7 +567,7 @@ const MORE_PHONES = [
     id: "ip13",
     name: "iPhone 13",
     variant: "Pink · 128GB",
-    price: 4499,
+    price: 10199,
     mrp: 69900,
     discount: 94,
     condition: "Grade A",
@@ -577,7 +577,7 @@ const MORE_PHONES = [
     id: "ip12promax",
     name: "iPhone 12 Pro Max",
     variant: "Pacific Blue · 256GB",
-    price: 5999,
+    price: 10499,
     mrp: 109900,
     discount: 95,
     condition: "Grade B+",
@@ -587,7 +587,7 @@ const MORE_PHONES = [
     id: "ip12pro",
     name: "iPhone 12 Pro",
     variant: "Gold · 128GB",
-    price: 4999,
+    price: 10299,
     mrp: 99900,
     discount: 95,
     condition: "Grade B+",
@@ -597,7 +597,7 @@ const MORE_PHONES = [
     id: "ip12",
     name: "iPhone 12",
     variant: "Blue · 64GB",
-    price: 3499,
+    price: 10099,
     mrp: 69900,
     discount: 95,
     condition: "Grade B+",
@@ -607,7 +607,7 @@ const MORE_PHONES = [
     id: "ip11promax",
     name: "iPhone 11 Pro Max",
     variant: "Midnight Green · 256GB",
-    price: 3999,
+    price: 10299,
     mrp: 89900,
     discount: 96,
     condition: "Grade B",
@@ -617,7 +617,7 @@ const MORE_PHONES = [
     id: "ip11pro",
     name: "iPhone 11 Pro",
     variant: "Space Grey · 64GB",
-    price: 2999,
+    price: 10199,
     mrp: 79900,
     discount: 96,
     condition: "Grade B",
@@ -627,7 +627,7 @@ const MORE_PHONES = [
     id: "ip11",
     name: "iPhone 11",
     variant: "Purple · 64GB",
-    price: 1999,
+    price: 10099,
     mrp: 59900,
     discount: 97,
     condition: "Grade B",
@@ -637,7 +637,7 @@ const MORE_PHONES = [
     id: "ipse3",
     name: "iPhone SE (3rd Gen)",
     variant: "Starlight · 64GB",
-    price: 1799,
+    price: 10099,
     mrp: 49900,
     discount: 96,
     condition: "Grade A",
@@ -647,7 +647,7 @@ const MORE_PHONES = [
     id: "ipxr",
     name: "iPhone XR",
     variant: "Coral · 64GB",
-    price: 1299,
+    price: 10099,
     mrp: 49900,
     discount: 97,
     condition: "Grade B",
@@ -657,7 +657,7 @@ const MORE_PHONES = [
     id: "ipxsmax",
     name: "iPhone XS Max",
     variant: "Gold · 64GB",
-    price: 1499,
+    price: 10099,
     mrp: 64900,
     discount: 98,
     condition: "Grade B",
@@ -677,7 +677,7 @@ const MORE_PHONES = [
     id: "s24plus",
     name: "Samsung S24+",
     variant: "Cobalt Violet · 256GB",
-    price: 9999,
+    price: 10999,
     mrp: 99999,
     discount: 90,
     condition: "Grade A",
@@ -687,7 +687,7 @@ const MORE_PHONES = [
     id: "s24",
     name: "Samsung S24",
     variant: "Marble Grey · 128GB",
-    price: 6999,
+    price: 10499,
     mrp: 74999,
     discount: 91,
     condition: "Grade A",
@@ -697,7 +697,7 @@ const MORE_PHONES = [
     id: "s23ultra",
     name: "Samsung S23 Ultra",
     variant: "Phantom Black · 256GB",
-    price: 8999,
+    price: 10999,
     mrp: 124999,
     discount: 93,
     condition: "Grade A",
@@ -707,7 +707,7 @@ const MORE_PHONES = [
     id: "s23plus",
     name: "Samsung S23+",
     variant: "Lavender · 256GB",
-    price: 6499,
+    price: 10499,
     mrp: 94999,
     discount: 93,
     condition: "Grade A",
@@ -717,7 +717,7 @@ const MORE_PHONES = [
     id: "s23",
     name: "Samsung S23",
     variant: "Cream · 128GB",
-    price: 4999,
+    price: 10199,
     mrp: 74999,
     discount: 93,
     condition: "Grade A",
@@ -727,7 +727,7 @@ const MORE_PHONES = [
     id: "s22ultra",
     name: "Samsung S22 Ultra",
     variant: "Burgundy · 256GB",
-    price: 5999,
+    price: 10299,
     mrp: 109999,
     discount: 95,
     condition: "Grade B+",
@@ -747,7 +747,7 @@ const MORE_PHONES = [
     id: "flip5",
     name: "Samsung Z Flip 5",
     variant: "Mint · 256GB",
-    price: 7999,
+    price: 10999,
     mrp: 99999,
     discount: 92,
     condition: "Grade A",
@@ -757,7 +757,7 @@ const MORE_PHONES = [
     id: "op12",
     name: "OnePlus 12",
     variant: "Flowy Emerald · 256GB",
-    price: 4999,
+    price: 10499,
     mrp: 69999,
     discount: 93,
     condition: "Grade A",
@@ -767,7 +767,7 @@ const MORE_PHONES = [
     id: "op11",
     name: "OnePlus 11",
     variant: "Titan Black · 128GB",
-    price: 3499,
+    price: 10199,
     mrp: 56999,
     discount: 94,
     condition: "Grade A",
@@ -777,7 +777,7 @@ const MORE_PHONES = [
     id: "op10pro",
     name: "OnePlus 10 Pro",
     variant: "Volcanic Black · 128GB",
-    price: 2999,
+    price: 10099,
     mrp: 66999,
     discount: 96,
     condition: "Grade B+",
@@ -787,7 +787,7 @@ const MORE_PHONES = [
     id: "pixel8pro",
     name: "Google Pixel 8 Pro",
     variant: "Obsidian · 128GB",
-    price: 9999,
+    price: 10999,
     mrp: 106999,
     discount: 91,
     condition: "Grade A+",
@@ -797,7 +797,7 @@ const MORE_PHONES = [
     id: "pixel8",
     name: "Google Pixel 8",
     variant: "Hazel · 128GB",
-    price: 6999,
+    price: 10499,
     mrp: 75999,
     discount: 91,
     condition: "Grade A",
@@ -807,7 +807,7 @@ const MORE_PHONES = [
     id: "pixel7pro",
     name: "Google Pixel 7 Pro",
     variant: "Snow · 128GB",
-    price: 5499,
+    price: 10199,
     mrp: 84999,
     discount: 94,
     condition: "Grade A",
@@ -817,7 +817,7 @@ const MORE_PHONES = [
     id: "pixel7",
     name: "Google Pixel 7",
     variant: "Lemongrass · 128GB",
-    price: 3999,
+    price: 10099,
     mrp: 59999,
     discount: 93,
     condition: "Grade A",
@@ -827,7 +827,7 @@ const MORE_PHONES = [
     id: "mi14ultra",
     name: "Xiaomi 14 Ultra",
     variant: "Black · 256GB",
-    price: 9999,
+    price: 10999,
     mrp: 99999,
     discount: 90,
     condition: "Like New",
@@ -837,7 +837,7 @@ const MORE_PHONES = [
     id: "mi13",
     name: "Xiaomi 13 Pro",
     variant: "Ceramic White · 256GB",
-    price: 5999,
+    price: 10299,
     mrp: 79999,
     discount: 93,
     condition: "Grade A",
@@ -847,7 +847,7 @@ const MORE_PHONES = [
     id: "opporeno10",
     name: "OPPO Reno 10 Pro+",
     variant: "Glossy Purple · 256GB",
-    price: 4499,
+    price: 10099,
     mrp: 54999,
     discount: 92,
     condition: "Grade A",
@@ -857,7 +857,7 @@ const MORE_PHONES = [
     id: "vivox100",
     name: "Vivo X100 Pro",
     variant: "Asteroid Black · 256GB",
-    price: 8999,
+    price: 10999,
     mrp: 89999,
     discount: 90,
     condition: "Grade A",
@@ -867,7 +867,7 @@ const MORE_PHONES = [
     id: "nothing2",
     name: "Nothing Phone 2",
     variant: "Dark Grey · 256GB",
-    price: 3999,
+    price: 10099,
     mrp: 44999,
     discount: 91,
     condition: "Grade A",
@@ -877,7 +877,7 @@ const MORE_PHONES = [
     id: "motoe40",
     name: "Motorola Edge 40 Pro",
     variant: "Interstellar Black · 256GB",
-    price: 3499,
+    price: 10099,
     mrp: 44999,
     discount: 92,
     condition: "Grade A",
@@ -887,7 +887,7 @@ const MORE_PHONES = [
     id: "realmegtneo5",
     name: "Realme GT Neo 5",
     variant: "150W Booster Red · 256GB",
-    price: 2499,
+    price: 10099,
     mrp: 35999,
     discount: 93,
     condition: "Grade A",
@@ -897,7 +897,7 @@ const MORE_PHONES = [
     id: "nord3",
     name: "OnePlus Nord 3",
     variant: "Tempest Gray · 128GB",
-    price: 1999,
+    price: 10099,
     mrp: 33999,
     discount: 94,
     condition: "Grade A",
@@ -907,7 +907,7 @@ const MORE_PHONES = [
     id: "a54",
     name: "Samsung Galaxy A54",
     variant: "Awesome Lime · 128GB",
-    price: 1799,
+    price: 10099,
     mrp: 38999,
     discount: 95,
     condition: "Grade A",
@@ -917,7 +917,7 @@ const MORE_PHONES = [
     id: "poco",
     name: "POCO F5 Pro",
     variant: "Carbon Black · 256GB",
-    price: 2299,
+    price: 10099,
     mrp: 29999,
     discount: 92,
     condition: "Grade A",
@@ -927,7 +927,7 @@ const MORE_PHONES = [
     id: "iqoo11",
     name: "iQOO 11 Pro",
     variant: "Alpha · 256GB",
-    price: 3999,
+    price: 10299,
     mrp: 59999,
     discount: 93,
     condition: "Grade A",
@@ -937,7 +937,7 @@ const MORE_PHONES = [
     id: "asus8",
     name: "ASUS ROG Phone 8",
     variant: "Phantom Black · 256GB",
-    price: 7999,
+    price: 10999,
     mrp: 79999,
     discount: 90,
     condition: "Like New",
@@ -1021,8 +1021,10 @@ export default function App() {
   const [lightboxIdx, setLightboxIdx] = useState(0);
   const [offerOpen, setOfferOpen] = useState(false);
   const [buyOpen, setBuyOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<
+    null | (typeof MORE_PHONES)[0]
+  >(null);
   const [offerSuccess, setOfferSuccess] = useState(false);
-  const [buySuccess, setBuySuccess] = useState(false);
 
   // Offer form
   const [offerName, setOfferName] = useState("");
@@ -1033,6 +1035,9 @@ export default function App() {
   const [buyName, setBuyName] = useState("");
   const [buyPhone, setBuyPhone] = useState("");
   const [buyAddress, setBuyAddress] = useState("");
+  const [buyStep, setBuyStep] = useState<1 | 2 | 3>(1);
+  const [buyUtr, setBuyUtr] = useState("");
+  const [trackingId, setTrackingId] = useState("");
 
   // Review form
   const [reviewName, setReviewName] = useState("");
@@ -1110,16 +1115,40 @@ export default function App() {
     }
   };
 
+  const generateTrackingId = () => {
+    const rand = Math.floor(10000 + Math.random() * 90000);
+    return `TRK-${new Date().getFullYear()}-${rand}`;
+  };
+
   const handleBuySubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!buyName || !buyPhone || !buyAddress) {
       toast.error("Please fill all fields");
       return;
     }
-    const message = `Hello! I'd like to order:\n\nProduct: iPhone 16 Pro (Natural Titanium, 256GB)\nPrice: ₹14,999\n\nName: ${buyName}\nPhone: ${buyPhone}\nAddress: ${buyAddress}\n\nPlease confirm my order. Thank you!`;
-    const whatsappUrl = `https://wa.me/919671870287?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, "_blank");
-    setBuySuccess(true);
+    setBuyStep(2);
+  };
+
+  const handlePaymentSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!buyUtr || buyUtr.trim().length < 6) {
+      toast.error("Please enter a valid UTR number");
+      return;
+    }
+    const trkId = generateTrackingId();
+    setTrackingId(trkId);
+    const productName = selectedProduct
+      ? `${selectedProduct.name} (${selectedProduct.variant})`
+      : "iPhone 16 Pro (Natural Titanium, 256GB)";
+    const productPrice = selectedProduct
+      ? `₹${selectedProduct.price.toLocaleString("en-IN")}`
+      : "₹14,999";
+    const message = `Hello! New Order Placed!\n\nTracking ID: ${trkId}\nProduct: ${productName}\nPrice: ${productPrice}\n\nName: ${buyName}\nPhone: ${buyPhone}\nAddress: ${buyAddress}\n\nBooking Payment: ₹1,999 paid via UPI\nUTR Number: ${buyUtr}\n\nPlease confirm dispatch. Thank you!`;
+    window.open(
+      `https://wa.me/919671870287?text=${encodeURIComponent(message)}`,
+      "_blank",
+    );
+    setBuyStep(3);
   };
 
   const handleReviewSubmit = async (e: React.FormEvent) => {
@@ -1936,12 +1965,10 @@ export default function App() {
                     </button>
                     <button
                       type="button"
-                      onClick={() =>
-                        window.open(
-                          `https://wa.me/919671870287?text=${encodeURIComponent(`I want to buy ${phone.name} (${phone.variant}) at ₹${phone.price.toLocaleString("en-IN")}. Used only 1-2 days, 100% battery. Please confirm.`)}`,
-                          "_blank",
-                        )
-                      }
+                      onClick={() => {
+                        setSelectedProduct(phone);
+                        setBuyOpen(true);
+                      }}
                       className="flex-1 text-[11px] font-bold py-1.5 px-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors"
                     >
                       Buy Now
@@ -2614,70 +2641,57 @@ export default function App() {
         onOpenChange={(o) => {
           setBuyOpen(o);
           if (!o) {
-            setBuySuccess(false);
             setBuyName("");
             setBuyPhone("");
             setBuyAddress("");
+            setBuyStep(1);
+            setBuyUtr("");
+            setTrackingId("");
+            setSelectedProduct(null);
           }
         }}
       >
-        <DialogContent data-ocid="buynow.dialog" className="sm:max-w-md">
+        <DialogContent
+          data-ocid="buynow.dialog"
+          className="sm:max-w-md max-h-[90vh] overflow-y-auto"
+        >
           <DialogHeader>
             <DialogTitle className="font-display text-xl">
-              Order Summary
+              {buyStep === 1
+                ? "Order Details"
+                : buyStep === 2
+                  ? "Complete Payment"
+                  : "Order Confirmed!"}
             </DialogTitle>
           </DialogHeader>
-          {buySuccess ? (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center py-8"
-            >
-              <CheckCircle2 size={48} className="text-green-500 mx-auto mb-3" />
-              <p className="font-display font-bold text-xl">Order Placed! 🎉</p>
-              <p className="text-sm text-muted-foreground mt-2">
-                Your order details have been sent via WhatsApp! We'll confirm
-                within 2 hours.
-              </p>
-              <Button
-                className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-bold"
-                onClick={() => {
-                  const message = `Hello! I'd like to order:\n\nProduct: iPhone 16 Pro (Natural Titanium, 256GB)\nPrice: ₹14,999\n\nName: ${buyName}\nPhone: ${buyPhone}\nAddress: ${buyAddress}\n\nPlease confirm my order. Thank you!`;
-                  window.open(
-                    `https://wa.me/919671870287?text=${encodeURIComponent(message)}`,
-                    "_blank",
-                  );
-                }}
-              >
-                <MessageCircle size={16} className="mr-2" />
-                Open WhatsApp
-              </Button>
-              <Button
-                className="mt-3 w-full"
-                variant="outline"
-                onClick={() => setBuyOpen(false)}
-              >
-                Done
-              </Button>
-            </motion.div>
-          ) : (
+
+          {/* STEP 1: Order Form */}
+          {buyStep === 1 && (
             <form onSubmit={handleBuySubmit} className="space-y-4 mt-2">
               {/* Order item summary */}
               <div className="bg-slate-50 rounded-xl p-3 border border-border flex items-center gap-3">
                 <img
-                  src="/assets/generated/iphone16pro-front.dim_800x1000.jpg"
-                  alt="iPhone 16 Pro"
+                  src={
+                    selectedProduct
+                      ? getPhoneImage(selectedProduct.name)
+                      : "/assets/generated/iphone16pro-front.dim_800x1000.jpg"
+                  }
+                  alt={selectedProduct?.name || "iPhone 16 Pro"}
                   className="w-12 h-14 object-cover rounded-lg"
                 />
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-sm text-foreground truncate">
-                    iPhone 16 Pro · Natural Titanium
+                    {selectedProduct
+                      ? `${selectedProduct.name} · ${selectedProduct.variant}`
+                      : "iPhone 16 Pro · Natural Titanium"}
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    256GB · Grade A
+                    Grade A · 100% Battery
                   </p>
                   <p className="font-display font-black text-lg text-foreground">
-                    {formatPrice(PRODUCT.salePrice)}
+                    {selectedProduct
+                      ? formatPrice(selectedProduct.price)
+                      : formatPrice(PRODUCT.salePrice)}
                   </p>
                 </div>
               </div>
@@ -2691,6 +2705,7 @@ export default function App() {
                 </label>
                 <Input
                   id="buy-name"
+                  data-ocid="buynow.name.input"
                   value={buyName}
                   onChange={(e) => setBuyName(e.target.value)}
                   placeholder="Your full name"
@@ -2710,6 +2725,7 @@ export default function App() {
                   />
                   <Input
                     id="buy-phone"
+                    data-ocid="buynow.phone.input"
                     value={buyPhone}
                     onChange={(e) => setBuyPhone(e.target.value)}
                     placeholder="+91 98765 43210"
@@ -2727,6 +2743,7 @@ export default function App() {
                 </label>
                 <Textarea
                   id="buy-address"
+                  data-ocid="buynow.address.textarea"
                   value={buyAddress}
                   onChange={(e) => setBuyAddress(e.target.value)}
                   placeholder="House No., Street, City, State, PIN code"
@@ -2772,13 +2789,183 @@ export default function App() {
                   className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold"
                 >
                   <Shield size={14} className="mr-2" />
-                  Confirm Order
+                  Continue to Payment
                 </Button>
               </div>
               <p className="text-xs text-center text-muted-foreground">
                 🔒 Secure payment · Free returns within 7 days
               </p>
             </form>
+          )}
+
+          {/* STEP 2: QR Payment */}
+          {buyStep === 2 && (
+            <form onSubmit={handlePaymentSubmit} className="space-y-4 mt-2">
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-center">
+                <p className="text-sm font-semibold text-amber-800">
+                  Pay Booking Amount
+                </p>
+                <p className="text-2xl font-black text-amber-900 mt-1">
+                  ₹1,999
+                </p>
+                <p className="text-xs text-amber-700 mt-1">
+                  Scan QR code with any UPI app
+                </p>
+              </div>
+
+              <div className="flex justify-center">
+                <img
+                  src="/assets/uploads/WhatsApp-Image-2026-03-11-at-7.35.09-AM-1.jpeg"
+                  alt="UPI QR Code"
+                  className="w-52 h-52 object-contain rounded-xl border-2 border-border shadow-sm"
+                />
+              </div>
+
+              <div className="bg-slate-50 rounded-xl p-3 text-xs text-muted-foreground space-y-1">
+                <p>• Open GPay / PhonePe / Paytm / any UPI app</p>
+                <p>• Scan the QR code above</p>
+                <p>
+                  • Pay exactly <strong>₹1,999</strong> as booking amount
+                </p>
+                <p>• Copy the UTR / Transaction ID from your app</p>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="utr-input"
+                  className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1 block"
+                >
+                  UTR / Transaction Reference Number *
+                </label>
+                <Input
+                  id="utr-input"
+                  data-ocid="payment.utr.input"
+                  value={buyUtr}
+                  onChange={(e) => setBuyUtr(e.target.value)}
+                  placeholder="e.g. 406123456789"
+                  className="font-mono"
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Find this in your UPI app under transaction history
+                </p>
+              </div>
+
+              <div className="flex gap-3">
+                <Button
+                  data-ocid="payment.back_button"
+                  type="button"
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() => setBuyStep(1)}
+                >
+                  Back
+                </Button>
+                <Button
+                  data-ocid="payment.submit_button"
+                  type="submit"
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold"
+                >
+                  <Shield size={14} className="mr-2" />
+                  Confirm &amp; Place Order
+                </Button>
+              </div>
+              <p className="text-xs text-center text-muted-foreground">
+                🔒 Your order will be confirmed after UTR verification
+              </p>
+            </form>
+          )}
+
+          {/* STEP 3: Confirmation with Tracking ID */}
+          {buyStep === 3 && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="space-y-4 mt-2"
+            >
+              <div className="text-center py-4">
+                <CheckCircle2
+                  size={52}
+                  className="text-green-500 mx-auto mb-3"
+                />
+                <p className="font-display font-black text-xl">Order Placed!</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  We'll confirm your order within 2 hours
+                </p>
+              </div>
+
+              {/* Tracking ID Card */}
+              <div className="bg-primary/5 border-2 border-primary rounded-xl p-4 text-center">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+                  Your Tracking ID
+                </p>
+                <p
+                  data-ocid="order.tracking_id"
+                  className="font-mono font-black text-2xl text-primary tracking-widest"
+                >
+                  {trackingId}
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Save this to track your order
+                </p>
+              </div>
+
+              {/* Order Details */}
+              <div className="bg-slate-50 rounded-xl p-4 space-y-2 text-sm border border-border">
+                <p className="font-semibold text-sm mb-2">Order Details</p>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Product</span>
+                  <span className="font-medium text-right max-w-[55%] truncate">
+                    iPhone 16 Pro · Natural Titanium
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Name</span>
+                  <span className="font-medium">{buyName}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Phone</span>
+                  <span className="font-medium">{buyPhone}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Booking Paid</span>
+                  <span className="font-medium text-green-600">₹1,999</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">UTR</span>
+                  <span className="font-mono text-xs font-medium">
+                    {buyUtr}
+                  </span>
+                </div>
+                <Separator />
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Status</span>
+                  <span className="text-amber-600 font-semibold">
+                    Pending Confirmation
+                  </span>
+                </div>
+              </div>
+
+              <Button
+                className="w-full bg-green-500 hover:bg-green-600 text-white font-bold"
+                onClick={() => {
+                  const message = `Hello! My order tracking ID is: ${trackingId}\n\nName: ${buyName}\nPhone: ${buyPhone}\n\nPlease update me on my order status.`;
+                  window.open(
+                    `https://wa.me/919671870287?text=${encodeURIComponent(message)}`,
+                    "_blank",
+                  );
+                }}
+              >
+                <MessageCircle size={16} className="mr-2" />
+                Track on WhatsApp
+              </Button>
+              <Button
+                className="w-full"
+                variant="outline"
+                onClick={() => setBuyOpen(false)}
+              >
+                Done
+              </Button>
+            </motion.div>
           )}
         </DialogContent>
       </Dialog>
