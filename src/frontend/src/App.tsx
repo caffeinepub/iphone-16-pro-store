@@ -56,7 +56,7 @@ import {
   ZoomIn,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import type { Review } from "./backend.d";
 import {
@@ -1035,9 +1035,18 @@ export default function App() {
   const [buyName, setBuyName] = useState("");
   const [buyPhone, setBuyPhone] = useState("");
   const [buyAddress, setBuyAddress] = useState("");
-  const [buyStep, setBuyStep] = useState<1 | 2 | 3>(1);
-  const [buyUtr, setBuyUtr] = useState("");
+  const [buyStep, setBuyStep] = useState<1 | 2>(1);
   const [trackingId, setTrackingId] = useState("");
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   // Review form
   const [reviewName, setReviewName] = useState("");
@@ -1126,29 +1135,45 @@ export default function App() {
       toast.error("Please fill all fields");
       return;
     }
-    setBuyStep(2);
-  };
 
-  const handlePaymentSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!buyUtr || buyUtr.trim().length < 6) {
-      toast.error("Please enter a valid UTR number");
-      return;
-    }
-    const trkId = generateTrackingId();
-    setTrackingId(trkId);
     const productName = selectedProduct
       ? `${selectedProduct.name} (${selectedProduct.variant})`
       : "iPhone 16 Pro (Natural Titanium, 256GB)";
     const productPrice = selectedProduct
       ? `₹${selectedProduct.price.toLocaleString("en-IN")}`
       : "₹14,999";
-    const message = `Hello! New Order Placed!\n\nTracking ID: ${trkId}\nProduct: ${productName}\nPrice: ${productPrice}\n\nName: ${buyName}\nPhone: ${buyPhone}\nAddress: ${buyAddress}\n\nBooking Payment: ₹1,999 paid via UPI\nUTR Number: ${buyUtr}\n\nPlease confirm dispatch. Thank you!`;
-    window.open(
-      `https://wa.me/919671870287?text=${encodeURIComponent(message)}`,
-      "_blank",
-    );
-    setBuyStep(3);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const Razorpay = (window as any).Razorpay;
+    if (!Razorpay) {
+      toast.error("Payment gateway not loaded. Please refresh and try again.");
+      return;
+    }
+
+    const options = {
+      key: "rzp_live_SQZYwupM3mFil4",
+      amount: 199900,
+      currency: "INR",
+      name: "iPhone 16 Pro Store",
+      description: `Booking for ${productName}`,
+      prefill: {
+        name: buyName,
+        contact: buyPhone,
+      },
+      theme: { color: "#000000" },
+      handler: (response: { razorpay_payment_id: string }) => {
+        const trkId = generateTrackingId();
+        setTrackingId(trkId);
+        const message = `Hello! New Order Placed!\n\nTracking ID: ${trkId}\nProduct: ${productName}\nPrice: ${productPrice}\n\nName: ${buyName}\nPhone: ${buyPhone}\nAddress: ${buyAddress}\n\nBooking Payment: ₹1,999 paid via Razorpay\nPayment ID: ${response.razorpay_payment_id}\n\nPlease confirm dispatch. Thank you!`;
+        window.open(
+          `https://wa.me/919671870287?text=${encodeURIComponent(message)}`,
+          "_blank",
+        );
+        setBuyStep(2);
+      },
+    };
+    const rzp = new Razorpay(options);
+    rzp.open();
   };
 
   const handleReviewSubmit = async (e: React.FormEvent) => {
@@ -2645,7 +2670,6 @@ export default function App() {
             setBuyPhone("");
             setBuyAddress("");
             setBuyStep(1);
-            setBuyUtr("");
             setTrackingId("");
             setSelectedProduct(null);
           }
@@ -2657,11 +2681,7 @@ export default function App() {
         >
           <DialogHeader>
             <DialogTitle className="font-display text-xl">
-              {buyStep === 1
-                ? "Order Details"
-                : buyStep === 2
-                  ? "Complete Payment"
-                  : "Order Confirmed!"}
+              {buyStep === 1 ? "Order Details" : "Order Confirmed!"}
             </DialogTitle>
           </DialogHeader>
 
@@ -2789,7 +2809,7 @@ export default function App() {
                   className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold"
                 >
                   <Shield size={14} className="mr-2" />
-                  Continue to Payment
+                  Pay ₹1,999 &amp; Place Order
                 </Button>
               </div>
               <p className="text-xs text-center text-muted-foreground">
@@ -2798,85 +2818,8 @@ export default function App() {
             </form>
           )}
 
-          {/* STEP 2: QR Payment */}
+          {/* STEP 2: Confirmation with Tracking ID */}
           {buyStep === 2 && (
-            <form onSubmit={handlePaymentSubmit} className="space-y-4 mt-2">
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-center">
-                <p className="text-sm font-semibold text-amber-800">
-                  Pay Booking Amount
-                </p>
-                <p className="text-2xl font-black text-amber-900 mt-1">
-                  ₹1,999
-                </p>
-                <p className="text-xs text-amber-700 mt-1">
-                  Scan QR code with any UPI app
-                </p>
-              </div>
-
-              <div className="flex justify-center">
-                <img
-                  src="/assets/uploads/WhatsApp-Image-2026-03-11-at-7.35.09-AM-1.jpeg"
-                  alt="UPI QR Code"
-                  className="w-52 h-52 object-contain rounded-xl border-2 border-border shadow-sm"
-                />
-              </div>
-
-              <div className="bg-slate-50 rounded-xl p-3 text-xs text-muted-foreground space-y-1">
-                <p>• Open GPay / PhonePe / Paytm / any UPI app</p>
-                <p>• Scan the QR code above</p>
-                <p>
-                  • Pay exactly <strong>₹1,999</strong> as booking amount
-                </p>
-                <p>• Copy the UTR / Transaction ID from your app</p>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="utr-input"
-                  className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1 block"
-                >
-                  UTR / Transaction Reference Number *
-                </label>
-                <Input
-                  id="utr-input"
-                  data-ocid="payment.utr.input"
-                  value={buyUtr}
-                  onChange={(e) => setBuyUtr(e.target.value)}
-                  placeholder="e.g. 406123456789"
-                  className="font-mono"
-                />
-                <p className="text-xs text-muted-foreground mt-1">
-                  Find this in your UPI app under transaction history
-                </p>
-              </div>
-
-              <div className="flex gap-3">
-                <Button
-                  data-ocid="payment.back_button"
-                  type="button"
-                  variant="outline"
-                  className="flex-1"
-                  onClick={() => setBuyStep(1)}
-                >
-                  Back
-                </Button>
-                <Button
-                  data-ocid="payment.submit_button"
-                  type="submit"
-                  className="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold"
-                >
-                  <Shield size={14} className="mr-2" />
-                  Confirm &amp; Place Order
-                </Button>
-              </div>
-              <p className="text-xs text-center text-muted-foreground">
-                🔒 Your order will be confirmed after UTR verification
-              </p>
-            </form>
-          )}
-
-          {/* STEP 3: Confirmation with Tracking ID */}
-          {buyStep === 3 && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -2929,12 +2872,6 @@ export default function App() {
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Booking Paid</span>
                   <span className="font-medium text-green-600">₹1,999</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">UTR</span>
-                  <span className="font-mono text-xs font-medium">
-                    {buyUtr}
-                  </span>
                 </div>
                 <Separator />
                 <div className="flex justify-between">
