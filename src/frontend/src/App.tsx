@@ -663,6 +663,46 @@ const MORE_PHONES = [
     condition: "Grade B",
     battery: "100%",
   },
+  {
+    id: "ipxs",
+    name: "iPhone XS",
+    variant: "Silver · 64GB",
+    price: 10099,
+    mrp: 54900,
+    discount: 98,
+    condition: "Grade B",
+    battery: "100%",
+  },
+  {
+    id: "ipse2",
+    name: "iPhone SE (2nd Gen)",
+    variant: "White · 64GB",
+    price: 10099,
+    mrp: 44900,
+    discount: 97,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "ip13mini",
+    name: "iPhone 13 Mini",
+    variant: "Pink · 128GB",
+    price: 10299,
+    mrp: 69900,
+    discount: 95,
+    condition: "Grade A",
+    battery: "100%",
+  },
+  {
+    id: "ip12mini",
+    name: "iPhone 12 Mini",
+    variant: "Blue · 64GB",
+    price: 10099,
+    mrp: 59900,
+    discount: 98,
+    condition: "Grade B+",
+    battery: "100%",
+  },
 ];
 
 /* ── Brand Image Mapping ────────────────────────────── */
@@ -690,6 +730,10 @@ const IPHONE_IMAGE: Record<string, string> = {
   ipse3: "/assets/generated/iphone-se3.dim_400x500.jpg",
   ipxr: "/assets/generated/iphone-xr.dim_400x500.jpg",
   ipxsmax: "/assets/generated/iphone-xsmax.dim_400x500.jpg",
+  ipxs: "/assets/generated/iphone-xs.dim_400x500.jpg",
+  ipse2: "/assets/generated/iphone-se2.dim_400x500.jpg",
+  ip13mini: "/assets/generated/iphone-13mini.dim_400x500.jpg",
+  ip12mini: "/assets/generated/iphone-12mini.dim_400x500.jpg",
 };
 
 function getPhoneImage(id: string): string {
@@ -756,6 +800,9 @@ export default function App() {
   const [galleryIdx, setGalleryIdx] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIdx, setLightboxIdx] = useState(0);
+  const [welcomeOpen, setWelcomeOpen] = useState(() => {
+    return !sessionStorage.getItem("welcome_shown");
+  });
   const [offerOpen, setOfferOpen] = useState(false);
   const [buyOpen, setBuyOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<
@@ -775,16 +822,6 @@ export default function App() {
   const [buyStep, setBuyStep] = useState<1 | 2>(1);
   const [trackingId, setTrackingId] = useState("");
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
   // Review form
   const [reviewName, setReviewName] = useState("");
   const [reviewRating, setReviewRating] = useState(0);
@@ -794,6 +831,15 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("All");
   const [sortBy, setSortBy] = useState("discount");
+  const [priceRange, setPriceRange] = useState<[number, number]>([
+    10000, 150000,
+  ]);
+  const [compareList, setCompareList] = useState<string[]>([]);
+  const [compareOpen, setCompareOpen] = useState(false);
+  const [trackId, setTrackId] = useState("");
+  const [trackResult, setTrackResult] = useState<"found" | "invalid" | null>(
+    null,
+  );
   const [cart, setCart] = useState<Array<{ id: string; cartKey: number }>>([]);
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
@@ -813,6 +859,17 @@ export default function App() {
     );
   };
 
+  const toggleCompare = (id: string) => {
+    setCompareList((prev) => {
+      if (prev.includes(id)) return prev.filter((x) => x !== id);
+      if (prev.length >= 2) {
+        toast.error("You can only compare 2 phones at a time.");
+        return prev;
+      }
+      return [...prev, id];
+    });
+  };
+
   const filteredPhones = MORE_PHONES.filter((p) => {
     const matchSearch = p.name
       .toLowerCase()
@@ -825,7 +882,8 @@ export default function App() {
             p.name.startsWith("iPhone XR") ||
             p.name.startsWith("iPhone XS")
           : p.name.startsWith(selectedBrand);
-    return matchSearch && matchBrand;
+    const matchPrice = p.price >= priceRange[0] && p.price <= priceRange[1];
+    return matchSearch && matchBrand && matchPrice;
   }).sort((a, b) => {
     if (sortBy === "price_asc") return a.price - b.price;
     if (sortBy === "price_desc") return b.price - a.price;
@@ -880,37 +938,14 @@ export default function App() {
       ? `₹${selectedProduct.price.toLocaleString("en-IN")}`
       : "₹14,999";
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const Razorpay = (window as any).Razorpay;
-    if (!Razorpay) {
-      toast.error("Payment gateway not loaded. Please refresh and try again.");
-      return;
-    }
-
-    const options = {
-      key: "rzp_live_SQZYwupM3mFil4",
-      amount: 199900,
-      currency: "INR",
-      name: "iPhone 16 Pro Store",
-      description: `Booking for ${productName}`,
-      prefill: {
-        name: buyName,
-        contact: buyPhone,
-      },
-      theme: { color: "#000000" },
-      handler: (response: { razorpay_payment_id: string }) => {
-        const trkId = generateTrackingId();
-        setTrackingId(trkId);
-        const message = `Hello! New Order Placed!\n\nTracking ID: ${trkId}\nProduct: ${productName}\nPrice: ${productPrice}\n\nName: ${buyName}\nPhone: ${buyPhone}\nAddress: ${buyAddress}\n\nBooking Payment: ₹1,999 paid via Razorpay\nPayment ID: ${response.razorpay_payment_id}\n\nPlease confirm dispatch. Thank you!`;
-        window.open(
-          `https://wa.me/919671870287?text=${encodeURIComponent(message)}`,
-          "_blank",
-        );
-        setBuyStep(2);
-      },
-    };
-    const rzp = new Razorpay(options);
-    rzp.open();
+    const trkId = generateTrackingId();
+    setTrackingId(trkId);
+    const message = `Hello! New Order Placed!\n\nTracking ID: ${trkId}\nProduct: ${productName}\nPrice: ${productPrice}\n\nName: ${buyName}\nPhone: ${buyPhone}\nAddress: ${buyAddress}\n\nBooking Amount: ₹299\n\nPlease confirm dispatch. Thank you!`;
+    window.open(
+      `https://wa.me/919289429308?text=${encodeURIComponent(message)}`,
+      "_blank",
+    );
+    setBuyStep(2);
   };
 
   const handleReviewSubmit = async (e: React.FormEvent) => {
@@ -996,6 +1031,13 @@ export default function App() {
               data-ocid="header.link"
             >
               Reviews
+            </a>
+            <a
+              href="#track"
+              className="hover:text-foreground transition-colors"
+              data-ocid="header.link"
+            >
+              Track Order
             </a>
           </nav>
           <button
@@ -1364,7 +1406,7 @@ export default function App() {
                 type="button"
                 onClick={() =>
                   window.open(
-                    "https://wa.me/919671870287?text=Hi!+I'm+interested+in+buying+iPhone+16+Pro+at+₹14,999.+Please+share+details.",
+                    "https://wa.me/919289429308?text=Hi!+I'm+interested+in+buying+iPhone+16+Pro+at+₹14,999.+Please+share+details.",
                     "_blank",
                   )
                 }
@@ -1535,7 +1577,7 @@ export default function App() {
           All Phones
         </h2>
         <p className="text-sm text-muted-foreground mb-5">
-          51+ certified pre-owned phones · All 100% battery health · Used just
+          26+ certified pre-owned iPhones · All 100% battery health · Used just
           1-2 days
         </p>
 
@@ -1552,6 +1594,50 @@ export default function App() {
             placeholder="Search phones..."
             className="pl-9 bg-white"
           />
+        </div>
+
+        {/* Price Range Filter */}
+        <div className="flex flex-wrap items-center gap-3 mb-4 p-3 bg-white rounded-xl border border-border">
+          <span className="text-xs font-semibold text-muted-foreground">
+            Price Range:
+          </span>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-muted-foreground">₹</span>
+            <input
+              type="number"
+              data-ocid="catalog.price_min.input"
+              value={priceRange[0]}
+              onChange={(e) =>
+                setPriceRange([Number(e.target.value) || 0, priceRange[1]])
+              }
+              className="w-24 h-7 text-xs border border-border rounded-md px-2 bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Min"
+            />
+            <span className="text-xs text-muted-foreground">–</span>
+            <span className="text-xs text-muted-foreground">₹</span>
+            <input
+              type="number"
+              data-ocid="catalog.price_max.input"
+              value={priceRange[1]}
+              onChange={(e) =>
+                setPriceRange([priceRange[0], Number(e.target.value) || 0])
+              }
+              className="w-24 h-7 text-xs border border-border rounded-md px-2 bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Max"
+            />
+          </div>
+          <button
+            type="button"
+            data-ocid="catalog.reset.button"
+            onClick={() => setPriceRange([10000, 150000])}
+            className="text-xs text-primary font-semibold hover:underline"
+          >
+            Reset
+          </button>
+          <span className="text-xs text-muted-foreground ml-auto">
+            ₹{priceRange[0].toLocaleString("en-IN")} – ₹
+            {priceRange[1].toLocaleString("en-IN")}
+          </span>
         </div>
 
         {/* Brand filter tabs */}
@@ -1650,6 +1736,18 @@ export default function App() {
                       }
                     />
                   </button>
+                  <button
+                    type="button"
+                    onClick={() => toggleCompare(phone.id)}
+                    className={`absolute top-2 left-2 p-1 text-[9px] font-bold rounded-full shadow border transition-all ${
+                      compareList.includes(phone.id)
+                        ? "bg-primary text-white border-primary"
+                        : "bg-white text-muted-foreground border-border hover:border-primary hover:text-primary"
+                    }`}
+                    aria-label="Compare"
+                  >
+                    VS
+                  </button>
                 </div>
 
                 {/* Card body */}
@@ -1720,27 +1818,28 @@ export default function App() {
                   )}
 
                   {/* Action buttons */}
-                  <div className="flex gap-1.5 mt-auto pt-1.5">
+                  <div className="flex flex-col gap-1.5 mt-auto pt-1.5">
+                    <button
+                      type="button"
+                      data-ocid={`catalog.buynow.button.${i + 1}`}
+                      onClick={() => {
+                        setSelectedProduct(phone);
+                        setBuyOpen(true);
+                      }}
+                      className="w-full text-[12px] font-bold py-2.5 px-2 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 active:opacity-90 transition-all shadow-md text-white border-0"
+                    >
+                      🛒 Buy Now — ₹299 Booking
+                    </button>
                     <button
                       type="button"
                       onClick={() => addToCart(phone.id)}
-                      className={`flex-1 text-[11px] font-bold py-1.5 px-2 rounded-lg border transition-colors ${
+                      className={`w-full text-[11px] font-bold py-1.5 px-2 rounded-lg border transition-colors ${
                         isInCart
                           ? "bg-primary text-white border-primary"
                           : "bg-white text-primary border-primary hover:bg-primary/5"
                       }`}
                     >
                       {isInCart ? "✓ In Cart" : "Add to Cart"}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSelectedProduct(phone);
-                        setBuyOpen(true);
-                      }}
-                      className="flex-1 text-[11px] font-bold py-1.5 px-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors"
-                    >
-                      Buy Now
                     </button>
                   </div>
                 </div>
@@ -1767,6 +1866,126 @@ export default function App() {
           </div>
         )}
       </section>
+
+      {/* ── Compare Bar ───────────────────────────────── */}
+      <AnimatePresence>
+        {compareList.length > 0 && (
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            className="fixed bottom-20 md:bottom-4 left-0 right-0 z-40 flex justify-center px-4"
+          >
+            <div className="bg-foreground text-white rounded-2xl shadow-2xl px-4 py-3 flex items-center gap-4 max-w-lg w-full">
+              <div className="flex-1 text-sm">
+                <span className="font-bold">
+                  Compare ({compareList.length}/2):
+                </span>{" "}
+                {compareList
+                  .map((id) => MORE_PHONES.find((p) => p.id === id)?.name)
+                  .filter(Boolean)
+                  .join(" vs ")}
+              </div>
+              {compareList.length === 2 && (
+                <button
+                  type="button"
+                  data-ocid="compare.open_modal_button"
+                  onClick={() => setCompareOpen(true)}
+                  className="bg-primary text-white text-sm font-bold px-4 py-1.5 rounded-full hover:opacity-90 transition-opacity whitespace-nowrap"
+                >
+                  Compare Now
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={() => setCompareList([])}
+                className="p-1 hover:opacity-70"
+              >
+                <X size={16} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Compare Modal ──────────────────────────────── */}
+      <Dialog open={compareOpen} onOpenChange={setCompareOpen}>
+        <DialogContent data-ocid="compare.dialog" className="max-w-2xl w-full">
+          <DialogHeader>
+            <DialogTitle className="font-display text-xl">
+              Compare iPhones
+            </DialogTitle>
+          </DialogHeader>
+          <div className="grid grid-cols-2 gap-4 mt-2">
+            {compareList.map((id) => {
+              const phone = MORE_PHONES.find((p) => p.id === id);
+              if (!phone) return null;
+              return (
+                <div
+                  key={id}
+                  className="flex flex-col gap-2 border border-border rounded-xl p-3"
+                >
+                  <img
+                    src={getPhoneImage(phone.id)}
+                    alt={phone.name}
+                    className="w-full h-40 object-contain bg-slate-50 rounded-lg p-2"
+                  />
+                  <p className="font-display font-black text-sm text-foreground">
+                    {phone.name}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {phone.variant}
+                  </p>
+                  <table className="text-xs w-full">
+                    <tbody>
+                      {[
+                        ["Price", `₹${phone.price.toLocaleString("en-IN")}`],
+                        ["MRP", `₹${phone.mrp.toLocaleString("en-IN")}`],
+                        ["Discount", `${phone.discount}% off`],
+                        ["Battery", phone.battery],
+                        ["Condition", phone.condition],
+                      ].map(([label, val]) => (
+                        <tr
+                          key={label}
+                          className="border-b border-border last:border-0"
+                        >
+                          <td className="py-1 text-muted-foreground font-medium w-20">
+                            {label}
+                          </td>
+                          <td className="py-1 font-semibold text-foreground">
+                            {val}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <Button
+                    data-ocid="compare.primary_button"
+                    size="sm"
+                    className="w-full mt-1 font-bold bg-primary hover:opacity-90"
+                    onClick={() => {
+                      setSelectedProduct(phone);
+                      setBuyStep(1);
+                      setBuyOpen(true);
+                      setCompareOpen(false);
+                    }}
+                  >
+                    Buy Now – ₹{phone.price.toLocaleString("en-IN")}
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
+          <button
+            type="button"
+            data-ocid="compare.close_button"
+            onClick={() => setCompareOpen(false)}
+            className="mt-2 text-sm text-muted-foreground hover:text-foreground transition-colors text-center w-full"
+          >
+            Close
+          </button>
+        </DialogContent>
+      </Dialog>
 
       {/* ── Cart Drawer ────────────────────────────────── */}
       <Sheet open={cartOpen} onOpenChange={setCartOpen}>
@@ -1871,7 +2090,7 @@ export default function App() {
                     }, 0);
                     const message = `Hello! I want to order these phones:\n\n${items}\n\nTotal: ₹${total.toLocaleString("en-IN")}\nPlease confirm availability. Thank you!`;
                     window.open(
-                      `https://wa.me/919671870287?text=${encodeURIComponent(message)}`,
+                      `https://wa.me/919289429308?text=${encodeURIComponent(message)}`,
                       "_blank",
                     );
                   }}
@@ -2010,7 +2229,7 @@ export default function App() {
             <div>
               <label
                 htmlFor="review-name"
-                className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1 block"
+                className="text-sm font-bold text-blue-700 uppercase tracking-wide mb-1 block"
               >
                 Your Name
               </label>
@@ -2026,7 +2245,7 @@ export default function App() {
             <div>
               <label
                 htmlFor="review-rating"
-                className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1 block"
+                className="text-sm font-bold text-blue-700 uppercase tracking-wide mb-1 block"
               >
                 Rating
               </label>
@@ -2037,7 +2256,7 @@ export default function App() {
             <div>
               <label
                 htmlFor="review-comment"
-                className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1 block"
+                className="text-sm font-bold text-blue-700 uppercase tracking-wide mb-1 block"
               >
                 Your Review
               </label>
@@ -2067,6 +2286,99 @@ export default function App() {
               )}
             </Button>
           </form>
+        </div>
+      </section>
+
+      {/* ── Track Your Order ──────────────────────────── */}
+      <section
+        id="track"
+        data-ocid="track.section"
+        className="max-w-2xl mx-auto px-4 py-12"
+      >
+        <div className="text-center mb-8">
+          <h2 className="font-display font-black text-2xl md:text-3xl text-foreground mb-2">
+            Track Your Order
+          </h2>
+          <p className="text-muted-foreground text-sm">
+            Enter your Tracking ID to view your order status
+          </p>
+        </div>
+        <div className="bg-white rounded-2xl border border-border shadow-sm p-6">
+          <div className="flex gap-2 mb-4">
+            <Input
+              data-ocid="track.input"
+              value={trackId}
+              onChange={(e) => {
+                setTrackId(e.target.value);
+                setTrackResult(null);
+              }}
+              placeholder="e.g. TRK-2026-84721"
+              className="flex-1 font-mono"
+            />
+            <Button
+              data-ocid="track.submit_button"
+              onClick={() => {
+                if (/^TRK-\d{4}-\d{5}$/.test(trackId.trim())) {
+                  setTrackResult("found");
+                } else {
+                  setTrackResult("invalid");
+                }
+              }}
+              className="bg-primary hover:opacity-90 font-bold"
+            >
+              Track Order
+            </Button>
+          </div>
+          <AnimatePresence>
+            {trackResult === "found" && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                data-ocid="track.success_state"
+                className="bg-green-50 border border-green-200 rounded-xl p-4"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle2 size={20} className="text-green-600" />
+                  <p className="font-bold text-green-800">Order Found!</p>
+                </div>
+                <p className="text-sm text-green-700 mb-1 font-semibold">
+                  Tracking ID: <span className="font-mono">{trackId}</span>
+                </p>
+                <p className="text-sm text-green-700 mb-3">
+                  📦 Status: <strong>Dispatched</strong> – Your phone is on the
+                  way!
+                </p>
+                <a
+                  href={`https://wa.me/919289429308?text=${encodeURIComponent(`Hello! I want to track my order. Tracking ID: ${trackId}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-ocid="track.primary_button"
+                  className="inline-flex items-center gap-2 bg-green-600 text-white text-sm font-bold px-4 py-2 rounded-full hover:bg-green-700 transition-colors"
+                >
+                  <MessageCircle size={16} />
+                  For real-time updates, contact on WhatsApp
+                </a>
+              </motion.div>
+            )}
+            {trackResult === "invalid" && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                data-ocid="track.error_state"
+                className="bg-red-50 border border-red-200 rounded-xl p-4"
+              >
+                <div className="flex items-center gap-2">
+                  <X size={20} className="text-red-500" />
+                  <p className="text-sm text-red-700 font-medium">
+                    Invalid tracking ID format. Please check and try again.
+                    (Expected format: TRK-2026-84721)
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
@@ -2321,7 +2633,7 @@ export default function App() {
               <div>
                 <label
                   htmlFor="offer-name"
-                  className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1 block"
+                  className="text-sm font-bold text-blue-700 uppercase tracking-wide mb-1 block"
                 >
                   Your Name
                 </label>
@@ -2336,7 +2648,7 @@ export default function App() {
               <div>
                 <label
                   htmlFor="offer-contact"
-                  className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1 block"
+                  className="text-sm font-bold text-blue-700 uppercase tracking-wide mb-1 block"
                 >
                   Phone / Email
                 </label>
@@ -2350,7 +2662,7 @@ export default function App() {
               <div>
                 <label
                   htmlFor="offer-price"
-                  className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1 block"
+                  className="text-sm font-bold text-blue-700 uppercase tracking-wide mb-1 block"
                 >
                   Your Offer Price (₹)
                 </label>
@@ -2386,7 +2698,7 @@ export default function App() {
                 <Button
                   data-ocid="offer.submit_button"
                   type="submit"
-                  className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold"
+                  className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold shadow-lg"
                   disabled={submitOffer.isPending}
                 >
                   {submitOffer.isPending ? (
@@ -2421,7 +2733,7 @@ export default function App() {
       >
         <DialogContent
           data-ocid="buynow.dialog"
-          className="sm:max-w-md max-h-[90vh] overflow-y-auto"
+          className="sm:max-w-md max-h-[90vh] overflow-y-auto bg-white"
         >
           <DialogHeader>
             <DialogTitle className="font-display text-xl">
@@ -2463,7 +2775,7 @@ export default function App() {
               <div>
                 <label
                   htmlFor="buy-name"
-                  className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1 block"
+                  className="text-sm font-bold text-blue-700 uppercase tracking-wide mb-1 block"
                 >
                   Full Name
                 </label>
@@ -2473,12 +2785,13 @@ export default function App() {
                   value={buyName}
                   onChange={(e) => setBuyName(e.target.value)}
                   placeholder="Your full name"
+                  className="bg-white border-2 border-blue-200 focus:border-blue-500 text-gray-900 placeholder:text-gray-400"
                 />
               </div>
               <div>
                 <label
                   htmlFor="buy-phone"
-                  className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1 block"
+                  className="text-sm font-bold text-blue-700 uppercase tracking-wide mb-1 block"
                 >
                   Phone Number
                 </label>
@@ -2493,7 +2806,7 @@ export default function App() {
                     value={buyPhone}
                     onChange={(e) => setBuyPhone(e.target.value)}
                     placeholder="+91 98765 43210"
-                    className="pl-8"
+                    className="pl-8 bg-white border-2 border-blue-200 focus:border-blue-500 text-gray-900 placeholder:text-gray-400"
                     type="tel"
                   />
                 </div>
@@ -2501,7 +2814,7 @@ export default function App() {
               <div>
                 <label
                   htmlFor="buy-address"
-                  className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1 block"
+                  className="text-sm font-bold text-blue-700 uppercase tracking-wide mb-1 block"
                 >
                   Delivery Address
                 </label>
@@ -2512,19 +2825,19 @@ export default function App() {
                   onChange={(e) => setBuyAddress(e.target.value)}
                   placeholder="House No., Street, City, State, PIN code"
                   rows={2}
-                  className="resize-none"
+                  className="resize-none bg-white border-2 border-blue-200 focus:border-blue-500 text-gray-900 placeholder:text-gray-400"
                 />
               </div>
 
               {/* Price summary */}
-              <div className="bg-slate-50 rounded-xl p-3 border border-border space-y-1 text-sm">
+              <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-3 border border-blue-200 space-y-1 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Price</span>
-                  <span>{formatPrice(PRODUCT.salePrice)}</span>
-                </div>
-                <div className="flex justify-between text-green-600">
-                  <span>Discount</span>
-                  <span>- {formatPrice(PRODUCT.mrp - PRODUCT.salePrice)}</span>
+                  <span className="text-muted-foreground">Phone Price</span>
+                  <span className="font-semibold">
+                    {selectedProduct
+                      ? formatPrice(selectedProduct.price)
+                      : formatPrice(PRODUCT.salePrice)}
+                  </span>
                 </div>
                 <div className="flex justify-between text-green-600">
                   <span>Delivery</span>
@@ -2532,9 +2845,12 @@ export default function App() {
                 </div>
                 <Separator className="my-1" />
                 <div className="flex justify-between font-bold text-base">
-                  <span>Total</span>
-                  <span>{formatPrice(PRODUCT.salePrice)}</span>
+                  <span>Booking Amount Now</span>
+                  <span className="text-green-600">₹299</span>
                 </div>
+                <p className="text-[10px] text-muted-foreground">
+                  Remaining balance paid on delivery
+                </p>
               </div>
 
               <div className="flex gap-3">
@@ -2550,14 +2866,14 @@ export default function App() {
                 <Button
                   data-ocid="buynow.submit_button"
                   type="submit"
-                  className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold"
+                  className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold shadow-lg"
                 >
                   <Shield size={14} className="mr-2" />
-                  Pay ₹1,999 &amp; Place Order
+                  Place Order on WhatsApp
                 </Button>
               </div>
               <p className="text-xs text-center text-muted-foreground">
-                🔒 Secure payment · Free returns within 7 days
+                📱 Order via WhatsApp · Free returns within 7 days
               </p>
             </form>
           )}
@@ -2615,7 +2931,7 @@ export default function App() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Booking Paid</span>
-                  <span className="font-medium text-green-600">₹1,999</span>
+                  <span className="font-medium text-green-600">₹299</span>
                 </div>
                 <Separator />
                 <div className="flex justify-between">
@@ -2631,7 +2947,7 @@ export default function App() {
                 onClick={() => {
                   const message = `Hello! My order tracking ID is: ${trackingId}\n\nName: ${buyName}\nPhone: ${buyPhone}\n\nPlease update me on my order status.`;
                   window.open(
-                    `https://wa.me/919671870287?text=${encodeURIComponent(message)}`,
+                    `https://wa.me/919289429308?text=${encodeURIComponent(message)}`,
                     "_blank",
                   );
                 }}
@@ -2648,6 +2964,91 @@ export default function App() {
               </Button>
             </motion.div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* ── Welcome Offer Modal ─────────────────────── */}
+      <Dialog
+        open={welcomeOpen}
+        onOpenChange={(o) => {
+          if (!o) {
+            sessionStorage.setItem("welcome_shown", "1");
+            setWelcomeOpen(false);
+          }
+        }}
+      >
+        <DialogContent
+          data-ocid="welcome.dialog"
+          className="sm:max-w-sm text-center p-0 overflow-hidden rounded-2xl border-0"
+        >
+          <div className="bg-gradient-to-br from-orange-500 via-red-500 to-pink-600 p-6 text-white relative">
+            <button
+              type="button"
+              onClick={() => {
+                sessionStorage.setItem("welcome_shown", "1");
+                setWelcomeOpen(false);
+              }}
+              className="absolute top-3 right-3 bg-white/20 hover:bg-white/30 rounded-full p-1 transition-colors"
+              aria-label="Close"
+            >
+              <X size={16} />
+            </button>
+            <div className="text-4xl mb-2">🎉</div>
+            <h2 className="font-display font-black text-2xl leading-tight">
+              Special Offer!
+            </h2>
+            <p className="text-white/90 text-sm mt-1">
+              Limited time deal — grab it fast!
+            </p>
+          </div>
+          <div className="p-6 space-y-4 bg-white">
+            <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 font-black text-lg px-4 py-2 rounded-full border-2 border-red-300">
+              <span>🔥</span>
+              <span>89% OFF</span>
+            </div>
+            <div>
+              <p className="text-muted-foreground text-sm font-medium">
+                Booking Fee
+              </p>
+              <div className="flex items-baseline justify-center gap-3 mt-1">
+                <span className="text-2xl text-muted-foreground line-through font-medium">
+                  ₹2,699
+                </span>
+                <span className="text-4xl font-black text-green-600">₹299</span>
+              </div>
+            </div>
+            <p className="text-base font-semibold text-foreground">
+              Book <span className="text-primary">any iPhone</span> today at
+              just ₹299!
+            </p>
+            <p className="text-xs text-muted-foreground">
+              ✅ 100% Battery · ✅ 1-Year Warranty · ✅ Free Delivery
+            </p>
+            <Button
+              data-ocid="welcome.primary_button"
+              className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-black text-lg py-6 rounded-xl shadow-lg"
+              onClick={() => {
+                sessionStorage.setItem("welcome_shown", "1");
+                setWelcomeOpen(false);
+                document
+                  .getElementById("catalog")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              🛒 Grab This Deal Now!
+            </Button>
+            <button
+              type="button"
+              data-ocid="welcome.close_button"
+              onClick={() => {
+                sessionStorage.setItem("welcome_shown", "1");
+                setWelcomeOpen(false);
+              }}
+              className="text-xs text-muted-foreground hover:text-foreground underline transition-colors"
+            >
+              No thanks, I&apos;ll browse first
+            </button>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
